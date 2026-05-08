@@ -56,6 +56,18 @@ Add this repo as a marketplace, then install the plugin:
 
 Once installed, the skill auto-activates whenever you ask Claude Code to analyze a ticker, sector, or investment thesis.
 
+## Recommended data sources
+
+The plugin is tool-agnostic — analysts use whatever live-data tools the runtime exposes (`WebSearch`, `WebFetch`, or MCP servers). It will run with web search alone, but adding a finance data source gives you structured fundamentals, real-time quotes, filings, and ownership data instead of scraped prose. Quality jumps noticeably for the Fundamentals and Technical analysts.
+
+| Source | What it adds |
+|---|---|
+| **FMP** (Financial Modeling Prep) | Real-time quotes, financial statements, ratios, DCF, analyst estimates, earnings transcripts, 13F holdings, insider trades, technical indicators |
+| **Equibles** | SEC filings (with line-level reads), short interest, institutional holdings, congressional/insider trades, CFTC positioning, economic indicators |
+| **Perplexity** | Higher-quality web research and sentiment, with citations |
+
+All three are available as hosted connectors in Claude. Open **Settings → Connectors**, search for the source, click **Connect**, and complete the auth flow. Tools appear automatically — no API keys to manage and nothing to run locally.
+
 ## Use on Claude.ai
 
 The same `SKILL.md` works as an Anthropic Agent Skill. Upload `ag-capital-analyst/skills/ag-capital-analyst/SKILL.md` to a Claude.ai project as a skill — it detects the runtime and resolves paths accordingly.
