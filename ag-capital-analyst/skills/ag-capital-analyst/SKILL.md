@@ -8,9 +8,6 @@ description: >-
   recommendation with position sizing and risk factors. Trigger phrases: analyze stock,
   investment analysis, should I buy, ticker analysis, portfolio recommendation, evaluate
   security, stock research, sector thesis.
-metadata:
-  author: AG Capital
-  version: '1.5'
 ---
 
 # AG Capital Investment Analysis
