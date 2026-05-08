@@ -1,1 +1,65 @@
 # ai-investment-analyst
+
+A Claude Code plugin marketplace for AI-driven investment research.
+
+Currently hosts a single plugin: **ag-capital-analyst** — a multi-agent investment analysis team that produces buy/sell/hold recommendations with position sizing.
+
+## What's in this repo
+
+```
+.
+├── .claude-plugin/
+│   └── marketplace.json          # Marketplace manifest
+├── ag-capital-analyst/           # The plugin
+│   ├── .claude-plugin/plugin.json
+│   └── skills/ag-capital-analyst/SKILL.md
+└── ag-analysis/                  # Sample outputs (DBMF, FTLS)
+```
+
+## The ag-capital-analyst plugin
+
+Spawns five analyst subagents in parallel, each pulling live financial data, then routes their signals through a Risk Manager and synthesizes a final recommendation.
+
+| Analyst | Lens |
+|---|---|
+| Buffett | Moat, intrinsic value, margin of safety |
+| Growth | TAM, revenue trajectory, disruption potential |
+| Technical | Price action, momentum, support/resistance |
+| Fundamentals | Financial statements, ratios, valuation multiples |
+| Sentiment | News flow, analyst opinion, social signals |
+
+The Portfolio Manager (the orchestrator) consolidates the five signal reports, hands them to a Risk Manager subagent for risk assessment, and produces a final deliverable with a recommendation, confidence score, price target, position size, and key risks — written for an inexperienced investor.
+
+### Trigger phrases
+
+> "analyze AAPL", "should I buy NVDA", "find undervalued semiconductor companies", "evaluate this ETF"
+
+### Output
+
+Each run produces a folder named `{TICKER} - {Security Name}/` containing:
+
+- `buffett-signal.md`, `growth-signal.md`, `technical-signal.md`, `fundamentals-signal.md`, `sentiment-signal.md`
+- `all-signals.md` — consolidated signals
+- `risk-assessment.md` — Risk Manager output
+- `final-recommendation.md` — final synthesis
+
+In Claude Code, reports are written directly into the user's Obsidian vault so they appear alongside other investment notes. In the Anthropic Agent Skills runtime (Claude.ai), they land under `/home/user/workspace/ag-analysis`. See `ag-analysis/` in this repo for example outputs (DBMF, FTLS).
+
+## Installation (Claude Code)
+
+Add this repo as a marketplace, then install the plugin:
+
+```
+/plugin marketplace add arkadiyg/ai-investment-analyst
+/plugin install ag-capital-analyst@ai-investment-analyst
+```
+
+Once installed, the skill auto-activates whenever you ask Claude Code to analyze a ticker, sector, or investment thesis.
+
+## Use on Claude.ai
+
+The same `SKILL.md` works as an Anthropic Agent Skill. Upload `ag-capital-analyst/skills/ag-capital-analyst/SKILL.md` to a Claude.ai project as a skill — it detects the runtime and resolves paths accordingly.
+
+## Disclaimer
+
+Output is for research and educational use only. Not investment advice. Live data is pulled from public sources at run time and may be incomplete or stale; verify before acting.
