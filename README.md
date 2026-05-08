@@ -70,7 +70,17 @@ All three are available as hosted connectors in Claude. Open **Settings → Conn
 
 ## Use on Claude.ai
 
-The same `SKILL.md` works as an Anthropic Agent Skill. Upload `ag-capital-analyst/skills/ag-capital-analyst/SKILL.md` to a Claude.ai project as a skill — it detects the runtime and resolves paths accordingly.
+The same skill works as an Anthropic Agent Skill on Claude.ai (Pro / Team / Enterprise). It auto-detects the runtime and writes reports under `/home/user/workspace/ag-analysis` instead of the Obsidian vault path used in Claude Code.
+
+### Install
+
+1. Download the skill file from the latest release:
+   [`ag-capital-analyst.md`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.0.0/ag-capital-analyst.md)
+2. In Claude.ai, open **Settings → Capabilities → Skills** (the exact path may vary by plan; see the [official Skills setup guide](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills) for the current UI flow).
+3. Click **Upload skill** (or **Create skill** → **Upload file**) and select the downloaded `ag-capital-analyst.md`.
+4. Enable the skill for the workspace or project where you want to use it.
+
+Once enabled, the skill auto-activates when you ask Claude to analyze a ticker, sector, or investment thesis (same trigger phrases as the Claude Code plugin).
 
 ## Disclaimer
 
