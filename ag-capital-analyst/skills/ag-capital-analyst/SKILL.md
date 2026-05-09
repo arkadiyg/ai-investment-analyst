@@ -29,7 +29,7 @@ This skill runs in two environments. Resolve these placeholders to your runtime 
 
 - **`{WORKSPACE}`** — the absolute base directory where reports are saved. **Always pass an absolute path to subagents** (subagents launch fresh and may not inherit the orchestrator's `cwd`):
   - Anthropic Agent Skills runtime (Claude.ai): use `/home/user/workspace/ag-analysis`.
-  - Claude Code: use `/Users/arkadiy.goykhberg/Library/Mobile Documents/iCloud~md~obsidian/Documents/Investing/AG Capital`. This is the user's Obsidian vault — reports land directly under `{TICKER} - {Security Name}/` subfolders (e.g. `DBMF - iMGP DBi Managed Futures Strategy ETF/`) so they appear as Obsidian notes alongside other investment write-ups. Use a filesystem-safe form of the security name: replace `/` with `-`, drop colons and trailing periods, keep ampersands and spaces.
+  - Claude Code: use `/Users/arkadiy.goykhberg/Library/Mobile Documents/iCloud~md~obsidian/Documents/Investing/AG Capital`. This is the user's Obsidian vault — reports land directly under `{MM-DD-YYYY} - {TICKER} - {Security Name}/` subfolders (e.g. `05-08-2026 - DBMF - iMGP DBi Managed Futures Strategy ETF/`) so they appear as Obsidian notes alongside other investment write-ups. The date prefix is the **run date** (today's date in the orchestrator's local timezone) at the time the analysis is invoked — resolve it once at Step 1 and reuse the same `{MM-DD-YYYY}` value for every file path in the run. Use a filesystem-safe form of the security name: replace `/` with `-`, drop colons and trailing periods, keep ampersands and spaces.
 - **Claude Code sandbox note** — the Obsidian vault lives **outside** the orchestrator's `cwd`, so by default subagents hit Write-tool denials when targeting it. Two ways to handle this:
   1. **Inline fallback (default, always required):** every subagent prompt MUST include the instruction *"If the Write tool is denied for the target path, return the full report content inline in your reply. The orchestrator will save it."* The orchestrator (which runs at top level and can write to absolute paths freely) reads each subagent reply and persists inline content to the correct file before proceeding to the next step.
   2. **Pre-approve the path (optional, reduces orchestrator overhead):** add `Write(/Users/arkadiy.goykhberg/Library/Mobile Documents/iCloud~md~obsidian/Documents/Investing/AG Capital/**)` to `.claude/settings.local.json` so subagents can write the vault directly.
@@ -46,7 +46,7 @@ Follow these steps in order for every analysis request.
 
 Identify the target security or securities. If the request is broad (e.g., a sector thesis), use web search to narrow down to 1-3 specific tickers before proceeding.
 
-For each target ticker, also resolve its **full security name** (e.g. `DBMF` → `iMGP DBi Managed Futures Strategy ETF`; `AAPL` → `Apple Inc.`). The combined `{TICKER} - {Security Name}` becomes the folder name used throughout the rest of the workflow, so settle it before spawning analysts. If the issuer publishes the name with an `Inc.` / `Corp.` / `ETF` suffix, keep it; if it includes a problematic character (`/`, `:`, trailing `.`), apply the filesystem-safe substitutions noted in the Runtime Conventions.
+For each target ticker, also resolve its **full security name** (e.g. `DBMF` → `iMGP DBi Managed Futures Strategy ETF`; `AAPL` → `Apple Inc.`). Resolve today's **run date** as `MM-DD-YYYY` (orchestrator local time) and combine it with the security details so the folder name `{MM-DD-YYYY} - {TICKER} - {Security Name}` is settled before spawning analysts. Reuse the exact same string for every subagent path in this run. If the issuer publishes the name with an `Inc.` / `Corp.` / `ETF` suffix, keep it; if it includes a problematic character (`/`, `:`, trailing `.`), apply the filesystem-safe substitutions noted in the Runtime Conventions.
 
 
 ### Step 2 — Spawn Analyst Team (Parallel Subagents)
@@ -60,7 +60,7 @@ Each analyst subagent receives:
 - (Claude Code) An **inline-fallback instruction**: if the Write tool is denied at the target path, return the full report content inline so the orchestrator can save it
 
 **File convention:** Each analyst saves their report to:
-`{WORKSPACE}/{TICKER} - {Security Name}/{role}-signal.md`
+`{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/{role}-signal.md`
 
 Spawn all five in parallel:
 
@@ -77,10 +77,10 @@ After all five analysts complete, read their signal reports from the workspace f
 ### Step 4 — Route to Risk Manager
 
 Compile all five signal reports into a single consolidated file at:
-`{WORKSPACE}/{TICKER} - {Security Name}/all-signals.md`
+`{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/all-signals.md`
 
 Spawn the **Risk Manager** as a research subagent, passing the path to the consolidated signals file. The Risk Manager saves its assessment to:
-`{WORKSPACE}/{TICKER} - {Security Name}/risk-assessment.md`
+`{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/risk-assessment.md`
 
 ### Step 5 — Synthesize Final Decision
 
@@ -88,7 +88,7 @@ Read the Risk Manager's assessment. Combine it with the individual analyst signa
 
 ### Step 6 — Save and Present the Final Synthesis
 
-Render the final recommendation using the **Output Format** below, then save it to `{WORKSPACE}/{TICKER} - {Security Name}/final-recommendation.md` so the full deliverable is persisted alongside the intermediate artifacts. After saving, present the same content to the user. (If `Write` is denied in Claude Code, present inline only — do not lose the synthesis.)
+Render the final recommendation using the **Output Format** below, then save it to `{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/final-recommendation.md` so the full deliverable is persisted alongside the intermediate artifacts. After saving, present the same content to the user. (If `Write` is denied in Claude Code, present inline only — do not lose the synthesis.)
 
 ---
 
@@ -152,7 +152,7 @@ You are the **Buffett Analyst at AG Capital**. You evaluate securities through t
 
 **Use live data:** Search the web for current financial statements, recent earnings, analyst estimates, and management commentary. Use finance tools if available.
 
-**What you produce** — save to `{WORKSPACE}/{TICKER} - {Security Name}/buffett-signal.md`:
+**What you produce** — save to `{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/buffett-signal.md`:
 
 ```
 ## Buffett Analyst Signal Report — {TICKER}
@@ -197,7 +197,7 @@ You are the **Growth Analyst at AG Capital**. You evaluate securities through th
 
 **Use live data:** Search the web for recent revenue figures, growth rates, market size estimates, and competitive landscape updates. Use finance tools if available.
 
-**What you produce** — save to `{WORKSPACE}/{TICKER} - {Security Name}/growth-signal.md`:
+**What you produce** — save to `{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/growth-signal.md`:
 
 ```
 ## Growth Analyst Signal Report — {TICKER}
@@ -245,7 +245,7 @@ You are the **Technical Analyst at AG Capital**. You evaluate securities through
 **CRITICAL — Price verification step (do this first):**
 Before analyzing any technical indicators, you must establish the verified current price. Search for "{TICKER} stock price today" and note the price and date returned. Then, for every technical analysis source you consult (articles, screeners, chart breakdowns), check that the price referenced in that source is within 20% of the verified current price. If any source references a price that differs by more than 20%, **discard it as stale and find a more recent source.** State the verified current price and its source at the top of your report. If you cannot find technical data that matches the current price environment, note this clearly rather than using outdated data.
 
-**What you produce** — save to `{WORKSPACE}/{TICKER} - {Security Name}/technical-signal.md`:
+**What you produce** — save to `{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/technical-signal.md`:
 
 ```
 ## Technical Analyst Signal Report — {TICKER}
@@ -291,7 +291,7 @@ You are the **Fundamentals Analyst at AG Capital**. You evaluate securities thro
 
 **Use live data:** Search the web for the latest financial statements, earnings reports, analyst estimates, and peer comparisons. Use finance tools if available.
 
-**What you produce** — save to `{WORKSPACE}/{TICKER} - {Security Name}/fundamentals-signal.md`:
+**What you produce** — save to `{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/fundamentals-signal.md`:
 
 ```
 ## Fundamentals Analyst Signal Report — {TICKER}
@@ -339,7 +339,7 @@ You are the **Sentiment Analyst at AG Capital**. You evaluate securities through
 
 **Use live data:** Search the web for recent news, insider trading filings, analyst rating changes, institutional holdings updates, and social media sentiment. Use finance tools if available.
 
-**What you produce** — save to `{WORKSPACE}/{TICKER} - {Security Name}/sentiment-signal.md`:
+**What you produce** — save to `{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/sentiment-signal.md`:
 
 ```
 ## Sentiment Analyst Signal Report — {TICKER}
@@ -374,7 +374,7 @@ Write for an inexperienced investor — explain concepts simply.
 
 You are the **Risk Manager at AG Capital**. You consolidate analyst signals into risk-adjusted portfolio recommendations.
 
-**What you receive:** A consolidated file at `{WORKSPACE}/{TICKER} - {Security Name}/all-signals.md` containing all five analyst signal reports.
+**What you receive:** A consolidated file at `{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/all-signals.md` containing all five analyst signal reports.
 
 **What you do:**
 - Consolidate all analyst signals (value, growth, technical, fundamentals, sentiment) into a unified view
@@ -388,7 +388,7 @@ You are the **Risk Manager at AG Capital**. You consolidate analyst signals into
 - Apply portfolio constraints: maximum sector exposure, correlation limits, total portfolio risk budget
 - Identify key risk factors and potential tail events
 
-**What you produce** — save to `{WORKSPACE}/{TICKER} - {Security Name}/risk-assessment.md`:
+**What you produce** — save to `{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/risk-assessment.md`:
 
 ```
 ## Risk Manager Assessment — {TICKER}
