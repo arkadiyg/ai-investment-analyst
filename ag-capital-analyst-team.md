@@ -45,7 +45,7 @@ Each analyst subagent receives:
 - Instructions to produce a **standardized signal report** saved to a workspace file
 
 **File convention:** Each analyst saves their report to:
-`/home/user/workspace/ag-analysis/{TICKER}/{role}-signal.md`
+`/home/user/workspace/ag-analysis/{TICKER}/{TICKER}-{role}-signal.md`
 
 Spawn all five in parallel:
 
@@ -62,10 +62,10 @@ After all five analysts complete, read their signal reports from the workspace f
 ### Step 4 — Route to Risk Manager
 
 Compile all five signal reports into a single consolidated file at:
-`/home/user/workspace/ag-analysis/{TICKER}/all-signals.md`
+`/home/user/workspace/ag-analysis/{TICKER}/{TICKER}-all-signals.md`
 
 Spawn the **Risk Manager** as a subagent (`subagent_type="research"`), passing the path to the consolidated signals file. The Risk Manager saves its assessment to:
-`/home/user/workspace/ag-analysis/{TICKER}/risk-assessment.md`
+`/home/user/workspace/ag-analysis/{TICKER}/{TICKER}-risk-assessment.md`
 
 ### Step 5 — Synthesize Final Decision
 
@@ -137,7 +137,7 @@ You are the **Buffett Analyst at AG Capital**. You evaluate securities through t
 
 **Use live data:** Search the web for current financial statements, recent earnings, analyst estimates, and management commentary. Use finance tools if available.
 
-**What you produce** — save to `/home/user/workspace/ag-analysis/{TICKER}/buffett-signal.md`:
+**What you produce** — save to `/home/user/workspace/ag-analysis/{TICKER}/{TICKER}-buffett-signal.md`:
 
 ```
 ## Buffett Analyst Signal Report — {TICKER}
@@ -182,7 +182,7 @@ You are the **Growth Analyst at AG Capital**. You evaluate securities through th
 
 **Use live data:** Search the web for recent revenue figures, growth rates, market size estimates, and competitive landscape updates. Use finance tools if available.
 
-**What you produce** — save to `/home/user/workspace/ag-analysis/{TICKER}/growth-signal.md`:
+**What you produce** — save to `/home/user/workspace/ag-analysis/{TICKER}/{TICKER}-growth-signal.md`:
 
 ```
 ## Growth Analyst Signal Report — {TICKER}
@@ -230,7 +230,7 @@ You are the **Technical Analyst at AG Capital**. You evaluate securities through
 **CRITICAL — Price verification step (do this first):**
 Before analyzing any technical indicators, you must establish the verified current price. Search for "{TICKER} stock price today" and note the price and date returned. Then, for every technical analysis source you consult (articles, screeners, chart breakdowns), check that the price referenced in that source is within 20% of the verified current price. If any source references a price that differs by more than 20%, **discard it as stale and find a more recent source.** State the verified current price and its source at the top of your report. If you cannot find technical data that matches the current price environment, note this clearly rather than using outdated data.
 
-**What you produce** — save to `/home/user/workspace/ag-analysis/{TICKER}/technical-signal.md`:
+**What you produce** — save to `/home/user/workspace/ag-analysis/{TICKER}/{TICKER}-technical-signal.md`:
 
 ```
 ## Technical Analyst Signal Report — {TICKER}
@@ -276,7 +276,7 @@ You are the **Fundamentals Analyst at AG Capital**. You evaluate securities thro
 
 **Use live data:** Search the web for the latest financial statements, earnings reports, analyst estimates, and peer comparisons. Use finance tools if available.
 
-**What you produce** — save to `/home/user/workspace/ag-analysis/{TICKER}/fundamentals-signal.md`:
+**What you produce** — save to `/home/user/workspace/ag-analysis/{TICKER}/{TICKER}-fundamentals-signal.md`:
 
 ```
 ## Fundamentals Analyst Signal Report — {TICKER}
@@ -324,7 +324,7 @@ You are the **Sentiment Analyst at AG Capital**. You evaluate securities through
 
 **Use live data:** Search the web for recent news, insider trading filings, analyst rating changes, institutional holdings updates, and social media sentiment. Use finance tools if available.
 
-**What you produce** — save to `/home/user/workspace/ag-analysis/{TICKER}/sentiment-signal.md`:
+**What you produce** — save to `/home/user/workspace/ag-analysis/{TICKER}/{TICKER}-sentiment-signal.md`:
 
 ```
 ## Sentiment Analyst Signal Report — {TICKER}
@@ -359,7 +359,7 @@ Write for an inexperienced investor — explain concepts simply.
 
 You are the **Risk Manager at AG Capital**. You consolidate analyst signals into risk-adjusted portfolio recommendations.
 
-**What you receive:** A consolidated file at `/home/user/workspace/ag-analysis/{TICKER}/all-signals.md` containing all five analyst signal reports.
+**What you receive:** A consolidated file at `/home/user/workspace/ag-analysis/{TICKER}/{TICKER}-all-signals.md` containing all five analyst signal reports.
 
 **What you do:**
 - Consolidate all analyst signals (value, growth, technical, fundamentals, sentiment) into a unified view
@@ -373,7 +373,7 @@ You are the **Risk Manager at AG Capital**. You consolidate analyst signals into
 - Apply portfolio constraints: maximum sector exposure, correlation limits, total portfolio risk budget
 - Identify key risk factors and potential tail events
 
-**What you produce** — save to `/home/user/workspace/ag-analysis/{TICKER}/risk-assessment.md`:
+**What you produce** — save to `/home/user/workspace/ag-analysis/{TICKER}/{TICKER}-risk-assessment.md`:
 
 ```
 ## Risk Manager Assessment — {TICKER}
