@@ -159,7 +159,8 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buf => {
-  const out = "/sessions/elegant-stoic-thompson/mnt/Investing/Allied American Land Fund - Sponsor Diligence Questionnaire.docx";
+  // Edit to the user's investing folder for THIS fund, next to the PPM.
+  const out = "/Investing/PPMs/Allied American Land Fund/Allied American Land Fund - Sponsor Diligence Questionnaire.docx";
   fs.writeFileSync(out, buf);
   console.log("Wrote", out, buf.length, "bytes");
 });
