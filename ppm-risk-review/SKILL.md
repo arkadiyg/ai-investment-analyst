@@ -36,7 +36,8 @@ Family offices see a steady stream of private-fund offering documents. Reading t
 4. **External diligence.** Use SEC EDGAR (search by sponsor entity name → look for Form D / D-A) to reconcile the marketed raise to actual capital raised. Use a web search to check for the sponsor's other businesses, regulatory actions, and parallel funds. Note any meaningful gap between marketing and reality.
 5. **Draft the three deliverables.** Use the Node scripts in `scripts/` as starting points; they encode the layout, fonts, and bullet-numbering that work reliably across Word and Google Docs.
 6. **Save outputs to the user's investing folder.** Use the file names below. Do NOT save to the temporary outputs folder only — the user must be able to open these from their cloud-synced folder.
-7. **Reply with `computer://` links and a one-paragraph summary** of the headline risks and the recommendation, then stop. Do not explain the documents at length in chat — the documents are the deliverable.
+7. **Update the pipeline summary.** Append this review to `ppm-pipeline-summary.md` (see "Updating the pipeline summary" below). Do this on every completed review so the running log stays current.
+8. **Reply with `computer://` links and a one-paragraph summary** of the headline risks and the recommendation, then stop. Do not explain the documents at length in chat — the documents are the deliverable.
 
 ## Output file names
 
@@ -78,6 +79,19 @@ For the **plain-English summary**: short paragraphs, no jargon, with a glossary 
 5. Validate by opening the resulting .docx file with `pandoc <file> -o /tmp/check.md` to confirm it parses.
 
 The scripts use `Calibri 11pt`, US Letter page size, 1-inch margins, navy/blue heading color, and a confidential-stamp header — these settings have been tested across Word, Word for Mac, and Google Docs.
+
+## Updating the pipeline summary
+
+After every completed review, update the running pipeline log so the family office has one place to see every offering screened and why each was declined or advanced. The file lives at the root of the user's Obsidian investing vault as `ppm-pipeline-summary.md` (if it does not exist yet, create it from the structure below).
+
+On each review:
+
+1. **Append a row** to the "At a Glance" table with the next sequential number: `# | Offering (legal name) | Date (YYYY-MM-DD) | Type | Investment Thesis (one line) | Decision (✅ / ⚠️ / ❌ Declined) | Primary Kill Shot (the 1–3 findings that drove the call, semicolon-separated)`.
+2. **Bump the header line** — the date stamp and both counts (e.g., `*Last updated: 2026-06-12 · 20 offerings reviewed · 20 declined*`).
+3. **Refresh the Pattern Analysis tallies** — add the new offering's number to every structural-red-flag and sponsor-integrity line it matches (no Form D, captive affiliate, marketing-contradicts-PPM, GP-set NAV, undated/template, misattributed track record, etc.), and increment the Asset Class Distribution count for its asset class.
+4. **Update the Verdict** line (the "N for N declined" count and any shift in the dominant failure mode).
+
+Keep the entry terse — it is an index row, not a summary of the memo. The per-offering detail lives in the three deliverables and in project memory. Match the existing wording conventions so the table stays scannable.
 
 ## Anti-patterns to avoid
 

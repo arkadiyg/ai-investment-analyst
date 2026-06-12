@@ -1,4 +1,4 @@
-# PPM Review Rubric (v2)
+# PPM Review Rubric (v2.1)
 
 A repeatable checklist for evaluating a private-fund offering document at family-office quality. Walk every section even if a finding is "not applicable" — explicitly noting absence is itself useful.
 
@@ -9,6 +9,8 @@ Classify every finding into one of three severity tiers as you go:
 - **ASK** — gap that belongs in the sponsor questionnaire, not the memo's conclusion.
 
 The memo recommendation should follow mechanically from the tier counts: any FATAL → decline pending remediation.
+
+**Carry the tiers into the memo, visibly.** Tag every finding heading in the CIO memo with its tier label (`[FATAL]` / `[NEGOTIABLE]` / `[ASK]`, plus `[STRENGTH]` for points in the deal's favor), give a one-line legend, and print a tally near the top (e.g., "four FATAL, three NEGOTIABLE, six ASK, one STRENGTH"). The reader should be able to see the recommendation falling out of the counts without reading the prose. Note when a NEGOTIABLE item only stays negotiable if a related FATAL is cured first (e.g., an adjustable carry is negotiable only once governance is restored) — flag that dependency rather than scoring it in isolation.
 
 ## 0. Document authenticity gate (run FIRST — a fail here changes the whole review)
 
@@ -58,7 +60,8 @@ Any contradiction across documents is at minimum NEGOTIABLE and usually FATAL �
 - **Fiduciary waivers.** Flag full fiduciary-duty waivers and any class structure where a captive affiliate class disclaims fiduciary duty to the investor class.
 - **Drag-along / tag-along.** Drag held by the Manager with no LP consent is normal but worth flagging. Tag should be unconditional.
 - **Indemnification and exculpation.** Look for the carve-outs (knowing violation of law, willful misconduct, improper personal benefit). Check if indemnification can claw back LP distributions.
-- **Side letters / MFN.** Note whether the Manager can grant superior terms secretly and without bound, and whether an MFN is offered. Unbounded secret side letters are FATAL.
+- **Side letters / MFN.** Note whether the Manager can grant superior terms secretly and without bound, and whether an MFN is offered. Unbounded secret side letters are FATAL. Watch for the specific mechanism of per-LP "Carry Adjustment" / "Management Fee Adjustment" clauses that let the Manager raise, reduce, or waive a given investor's economics "without the consent of, or notice to, any other Limited Partner" — that is a secret side letter written into the key terms.
+- **Illusory safeguards.** A protection the PPM advertises but the LPA nullifies. The classic tell: the PPM conditions affiliate fees or major actions on "Advisory Committee approval," while the LPA's Schedule states "there shall be no advisory committee for this Fund" (or the body is never actually constituted). The same pattern appears with referenced LP consent rights that a later clause waives. Treat a safeguard pointing to a non-existent body as worse than silence — it is affirmatively misleading — and FATAL when it guards a material conflict.
 - **Preferred-equity subordination.** Whether later capital can subordinate Class A in the waterfall.
 - **Manager-only options.** Call options, forced-redemption rights, or conversion rights (e.g., REIT conversion) exercisable unilaterally by the Manager — these cap the LP's outcome at the Manager's discretion.
 
@@ -101,6 +104,7 @@ This is its own bucket because it is the single most common decline pattern:
 - **Guaranties.** Whether the Manager or affiliates provide bad-boy, completion, or repayment guaranties — and whether the Fund indemnifies them out of fund assets in distress.
 - **Macro fit.** Is the strategy in or out of favor for the cycle? Compare the implied required gross return (pref + fees + carry + overhead) to current market comparables. Check whether the market thesis is stale (written for conditions that no longer hold) or the sector is in oversupply.
 - **Concentration.** Single-asset, single-sponsor, single-geography, single-counterparty exposure.
+- **Projected-return marketing vs. underwriting.** Prominent target IRR/ROI figures splashed across the deck (e.g., "22–28% IRR / 86–110% ROI") for a blind-pool or pre-cash-flow strategy, with no supporting underwriting, comparable transactions, or basis in the offering documents, is a marketing-vs-reality finding — not a return assumption you can rely on. Flag the projection, push the underwriting (assumed timelines, approval probabilities, exit pricing, comps) into the questionnaire, and never let a deck IRR migrate into the memo as if it were diligenced. Be doubly skeptical when the same materials describe a speculative, illiquid, binary-outcome asset as "low-risk," "stable," "asset-backed," or "capital preservation."
 
 ## 7. Sponsor, principals, and track record
 
@@ -110,6 +114,7 @@ This is its own bucket because it is the single most common decline pattern:
 - **Principal-level checks — not just the entity.** For each named principal: state and county court dockets, foreclosure and judgment searches, UCC filings, personal bankruptcies, prior failed deals, personal guaranties outstanding. The entity is usually clean because it's new; the principals are where the history lives.
 - **Operational footprint.** Sanity-check the business address (registered agent vs. real office vs. residential/rental address), web-domain age, and stated employee count. Subscription checks mailed to a house are a finding.
 - **Track-record attribution — three questions.** (1) Same *entity*? (Team members' records at prior employers are not the fund's.) (2) Same *team*? (3) Same *strategy*? (An operator's storage record does not cover retail conversion; a sponsor's own operating contracts are not originated loans.) "First-time fund with experienced-sounding marketing" is the most common dodge.
+- **Operating-company-affiliate dodge.** A specific, common variant of the attribution problem: a brand-new fund GP is presented as the "private-equity arm" / "capital arm" of an established (often family) operating business, and the deck borrows the operating company's decades-long, deal-by-deal *gross* brokerage/development record as if it were the fund's net-of-fee performance. It usually fails all three questions: different entity (operating co ≠ fund GP), the operator who earned the record may not even be named in the PPM's management exhibit (often only the capital-raiser is), and an own-account development/brokerage record is not a record of managing outside LP money in a pooled fund. Demand fund-level, net-of-fee, third-party-verified returns; treat the operating company's self-reported deal sheet as marketing, not a track record. Always EDGAR-search the principal and any prior same-name fund vehicle — a sibling fund that raised $0 sits directly behind a "first time / proven track record" claim.
 - **Prior and parallel funds.** Number of vehicles, vintages, sizes, status, audited or not; simultaneous raises create allocation conflicts (§3).
 - **Litigation, regulatory action, "Bad Actor" history.** BBB, FINRA BrokerCheck, IAPD, state securities regulators, and web search.
 
@@ -145,3 +150,10 @@ Also check state blue-sky filings where practical.
 9. The sponsor's primary business is investment management (or something else).
 
 If any of these flips negative, the deal is unlikely to clear a family-office IC without remediation. Two or more: decline.
+
+---
+
+## Changelog
+
+- **v2.1 (2026-06-12)** — Lessons folded in from the Lansing Land Development Fund I review: (1) carry the FATAL/NEGOTIABLE/ASK/STRENGTH tiers into the memo as visible per-finding labels with a legend and tally, and flag NEGOTIABLE-items whose status depends on curing a related FATAL; (2) §2 — added the per-LP "Carry/Management-Fee Adjustment" secret-side-letter mechanism and the "illusory safeguard" pattern (PPM cites an advisory committee/approval the LPA nullifies); (3) §7 — added the "operating-company-affiliate dodge" (new fund GP borrowing an affiliated operating business's gross deal record) and the reminder to EDGAR-search for a prior same-name fund vehicle that raised $0; (4) §6 — added "projected-return marketing vs. underwriting" (deck IRR/ROI with no documentary basis, especially when paired with "low-risk" framing of a binary asset).
+- **v2** — Added the document-authenticity gate (§0), cross-document reconciliation matrix (§0.5), conflicts/captive bucket (§3), debt-instrument branch (§5), the five-check EDGAR reconciliation (§8), and the page-one findings list.
