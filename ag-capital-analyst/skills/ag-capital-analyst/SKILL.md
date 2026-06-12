@@ -90,6 +90,8 @@ Read the Risk Manager's assessment. Combine it with the individual analyst signa
 
 Render the final recommendation using the **Output Format** below, then save it to `{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/final-recommendation.md` so the full deliverable is persisted alongside the intermediate artifacts. After saving, present the same content to the user. (If `Write` is denied in Claude Code, present inline only — do not lose the synthesis.)
 
+In the Analyst Signal Summary table, each analyst name must be an Obsidian wiki link to its signal file — substitute the actual ticker for `{TICKER}`. Because the link is inside a markdown table cell, the pipe separator MUST be escaped with a backslash (`\|`): `[[{TICKER}-buffett-signal\|Buffett]]`, `[[{TICKER}-growth-signal\|Growth]]`, `[[{TICKER}-technical-signal\|Technical]]`, `[[{TICKER}-fundamentals-signal\|Fundamentals]]`, `[[{TICKER}-sentiment-signal\|Sentiment]]`. If a Risk Manager row is included, link it as `[[{TICKER}-risk-assessment\|Risk Manager]]`.
+
 ---
 
 ## Output Format
@@ -107,11 +109,11 @@ Present the final analysis as follows:
 
 | Analyst | Signal | Confidence | Key Factor |
 |---------|--------|------------|------------|
-| Buffett | bullish/bearish/neutral | XX | one-line summary |
-| Growth | bullish/bearish/neutral | XX | one-line summary |
-| Technical | bullish/bearish/neutral | XX | one-line summary |
-| Fundamentals | bullish/bearish/neutral | XX | one-line summary |
-| Sentiment | bullish/bearish/neutral | XX | one-line summary |
+| [[{TICKER}-buffett-signal\|Buffett]] | bullish/bearish/neutral | XX | one-line summary |
+| [[{TICKER}-growth-signal\|Growth]] | bullish/bearish/neutral | XX | one-line summary |
+| [[{TICKER}-technical-signal\|Technical]] | bullish/bearish/neutral | XX | one-line summary |
+| [[{TICKER}-fundamentals-signal\|Fundamentals]] | bullish/bearish/neutral | XX | one-line summary |
+| [[{TICKER}-sentiment-signal\|Sentiment]] | bullish/bearish/neutral | XX | one-line summary |
 
 #### Signal Agreement
 
