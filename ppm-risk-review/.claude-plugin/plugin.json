@@ -1,0 +1,19 @@
+{
+  "name": "ppm-risk-review",
+  "version": "1.0.0",
+  "description": "Family-office-grade due diligence on a Private Placement Memorandum or other private-fund offering document. Produces a CIO risk memo, sponsor diligence questionnaire, and plain-English summary.",
+  "author": {
+    "name": "AG Capital"
+  },
+  "keywords": [
+    "investing",
+    "private equity",
+    "due diligence",
+    "PPM",
+    "family office",
+    "risk review",
+    "Reg D",
+    "offering memorandum",
+    "Form D"
+  ]
+}
