@@ -86,7 +86,7 @@ After every completed review, update the running pipeline log so the family offi
 
 On each review:
 
-1. **Append a row** to the "At a Glance" table with the next sequential number: `# | Offering (legal name) | Date (YYYY-MM-DD) | Type | Investment Thesis (one line) | Decision (✅ / ⚠️ / ❌ Declined) | Primary Kill Shot (the 1–3 findings that drove the call, semicolon-separated)`.
+1. **Append a row** to the "At a Glance" table with the next sequential number: `# | Offering (legal name) | Date (YYYY-MM-DD) | Type | Investment Thesis (one line) | Decision (✅ / ⚠️ / ❌ Declined) | Primary Kill Shot (the 1–3 findings that drove the call, semicolon-separated)`. Make the **Offering** cell a markdown link to that fund's folder — a `file://` URL with the absolute, URL-encoded host path (spaces → `%20`; encode trailing spaces in folder names too) — so the row links straight to the deal's documents.
 2. **Bump the header line** — the date stamp and both counts (e.g., `*Last updated: 2026-06-12 · 20 offerings reviewed · 20 declined*`).
 3. **Refresh the Pattern Analysis tallies** — add the new offering's number to every structural-red-flag and sponsor-integrity line it matches (no Form D, captive affiliate, marketing-contradicts-PPM, GP-set NAV, undated/template, misattributed track record, etc.), and increment the Asset Class Distribution count for its asset class.
 4. **Update the Verdict** line (the "N for N declined" count and any shift in the dominant failure mode).
