@@ -56,6 +56,7 @@ For each target security, spawn **five analyst subagents in parallel** using you
 Each analyst subagent receives:
 - The ticker symbol and company name
 - Their specific analyst role and instructions (copied from the role definitions below)
+- Their row from the **Data Source Registry** (below), so they prefer structured MCP finance tools over web scraping
 - Instructions to produce a **standardized signal report** saved to a workspace file
 - (Claude Code) An **inline-fallback instruction**: if the Write tool is denied at the target path, return the full report content inline so the orchestrator can save it
 
@@ -119,6 +120,18 @@ Present the final analysis as follows:
 
 Describe where the analysts agree and disagree. Highlight any notable divergences.
 
+#### Scenario Analysis (Bull / Base / Bear)
+
+Frame the price target as a distribution, not a single point. The **Base** case is your central expectation (and should reconcile with the headline Price Target above); **Bull** and **Bear** bracket the realistic range. Position sizing should reflect the spread — a wide bear-to-bull gap means more uncertainty and a smaller position.
+
+| Scenario | Price Target | Implied Return | Key Driver (what must happen) | Rough Probability |
+|----------|-------------|----------------|-------------------------------|-------------------|
+| **Bull** | $XX.XX | +XX% | (the upside catalyst that has to play out) | XX% |
+| **Base** | $XX.XX | +XX% | (the expected execution path) | XX% |
+| **Bear** | $XX.XX | −XX% | (the key risk that materializes) | XX% |
+
+Probabilities should sum to ~100%. For each scenario, name the **single most important driver** and, where relevant, what management commentary or data point would confirm the path. Keep it concrete — tie drivers back to the analyst signals above.
+
 #### Investment Thesis
 Investment decisions that include: the final recommendation (buy/sell/hold), position size, price targets, key risk factors, and a clear attribution of which analyst signals drove the decision and why.
 Your audience is an inexperienced investor, so you need to define all the terms.
@@ -130,6 +143,25 @@ Bullet list of the most important risks, in plain language.
 #### What to Watch
 
 Upcoming catalysts or events that could change the thesis (earnings dates, product launches, regulatory decisions, etc.).
+
+---
+
+## Data Source Registry
+
+Prefer **structured financial-data MCP tools** over web search whenever they are connected — they return cleaner, more current, and more citable data than scraping articles. Web search (`WebSearch`/`WebFetch`) is the **fallback** when no MCP tool covers the need or no finance MCP server is connected.
+
+When spawning each analyst (Step 2), include the matching row below in its prompt so it knows which tools to reach for first. Tool names are the canonical ones from common finance MCP servers (**Equibles**, **FMP**, **Financialdatasets.ai**, **AlphaVantage**); the exact namespaced names depend on which servers are connected in the runtime, so match by tool name and fall back gracefully if a server is absent.
+
+| Analyst | Primary MCP tools (prefer) | Fallback |
+|---------|----------------------------|----------|
+| **Buffett / Value** | `GetFinancialStatement`, `GetFinancialFact`, `GetValuationMultiples`, `GetBuybackPrograms`, `GetInsiderOwnership`, `GetExecutiveCompensation`; FMP `discountedCashFlow`, `statements`, `analyst` | Web search for management commentary, capital-allocation history |
+| **Growth** | `GetRevenueBreakdown`, `GetGuidance`, `GetFinancialFact`; Financialdatasets.ai `get_segmented_financials`, `get_kpi_metrics`; FMP `analyst` (estimates) | Web search for TAM, market-size, competitive landscape |
+| **Technical** | `GetStockPrices`, `GetLatestPrices`, `GetBollingerBands`, `GetAverageTrueRange`, `GetStochasticOscillator`, `GetOnBalanceVolume`; FMP `chart`, `quote`, `technicalIndicators` | Web search for chart-pattern reads (verify price per the price-verification step) |
+| **Fundamentals** | `GetFinancialStatement`, `GetValuationMultiples`, `GetFinancialFact`, `CompareFinancialFact`, `GetGoingConcernStatus`; Financialdatasets.ai `get_financial_metrics`, `get_income_statement`, `get_balance_sheet`, `get_cash_flow_statement` | Web search for peer comps, analyst estimates |
+| **Sentiment** | `GetInsiderTransactions`, `GetTopBuyersSellers`, `GetFundsHoldingStock`, `GetTopHolders`, `GetShortInterest`, `GetShortInterestSnapshot`, `GetShortVolume`, `GetShortSqueezeScores`, `GetCongressionalTrades`, `GetExecutiveChanges`, `GetInvestorRelationsNews`; FMP `news`, `insiderTrades`, `senate`, `form13F`; X (Twitter) API if connected | Web search for news flow, analyst rating changes, retail/social sentiment |
+| **Risk Manager** | `GetVixHistory`, `GetPutCallRatios`, `GetShortSqueezeScores`, `GetCftcPositioning`, `GetEconomicIndicator`; FMP `quote` (beta), `commitmentOfTraders`, `economics` | Web search for macro backdrop, sector risk |
+
+**Rule for every analyst:** when a data point comes from an MCP tool, cite the tool name and the as-of date in the **Sources** section (e.g. `Equibles GetShortInterest, settlement 2026-05-30`). When it comes from the web, cite the URL. Never present a number without a traceable source.
 
 ---
 
@@ -394,6 +426,7 @@ You are the **Risk Manager at AG Capital**. You consolidate analyst signals into
   - High volatility: maximum 10% position size
 - Apply portfolio constraints: maximum sector exposure, correlation limits, total portfolio risk budget
 - Identify key risk factors and potential tail events
+- Build a **Bull / Base / Bear scenario set**: a price target, implied return, single key driver, and rough probability for each case. The Base case is the central expectation; Bull and Bear bracket the realistic range. Widen the bear-to-bull spread (and trim the recommended position) when signals diverge or volatility is high
 
 **What you produce** — save to `{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/risk-assessment.md`:
 
@@ -410,7 +443,10 @@ You are the **Risk Manager at AG Capital**. You consolidate analyst signals into
 (Low / Medium / High — with reasoning)
 
 ### Recommended Position Size
-(Within volatility-adjusted limits, with justification)
+(Within volatility-adjusted limits, with justification — tighten when the bull/bear spread is wide)
+
+### Scenario Set (Bull / Base / Bear)
+(Table: scenario | price target | implied return | key driver | rough probability — probabilities sum to ~100%. Base reconciles with the headline price target.)
 
 ### Portfolio Risk Impact
 (How adding this position affects overall portfolio risk)
