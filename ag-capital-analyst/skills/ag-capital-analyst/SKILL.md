@@ -128,6 +128,7 @@ Present the final analysis as follows:
 **Confidence:** X/100
 **Price Target:** $XX.XX (X% upside/downside from current price of $XX.XX)
 **Suggested Position Size:** X% of portfolio
+**Time Horizon:** short-term (<3 months) / 6-12 months / multi-year
 
 #### Analyst Signal Summary
 
@@ -166,7 +167,12 @@ Bullet list of the most important risks, in plain language.
 
 #### What to Watch
 
-Upcoming catalysts or events that could change the thesis (earnings dates, product launches, regulatory decisions, etc.).
+The forward catalyst calendar from the Risk Manager — the dated events that could confirm or break the thesis. Mark which are **binary** (a single date with a large, two-sided outcome) and which fall inside the recommended time horizon.
+
+| Date (approx.) | Catalyst | Why it matters | Binary? |
+|----------------|----------|----------------|---------|
+| YYYY-MM-DD | Next earnings | (which scenario it tests) | Yes/No |
+| ... | (product launch / regulatory decision / lockup / macro release) | ... | Yes/No |
 
 ---
 
@@ -234,7 +240,7 @@ When spawning each analyst (Step 2), include the matching row below in its promp
 | **Fundamentals** | `GetFinancialStatement`, `GetValuationMultiples`, `GetFinancialFact`, `CompareFinancialFact`, `GetGoingConcernStatus`; Financialdatasets.ai `get_financial_metrics`, `get_income_statement`, `get_balance_sheet`, `get_cash_flow_statement` | Web search for peer comps, analyst estimates |
 | **Sentiment** | `GetInsiderTransactions`, `GetTopBuyersSellers`, `GetFundsHoldingStock`, `GetTopHolders`, `GetShortInterest`, `GetShortInterestSnapshot`, `GetShortVolume`, `GetShortSqueezeScores`, `GetCongressionalTrades`, `GetExecutiveChanges`, `GetInvestorRelationsNews`; FMP `news`, `insiderTrades`, `senate`, `form13F`; X (Twitter) API if connected | Web search for news flow, analyst rating changes, retail/social sentiment |
 | **Valuation** | `GetFinancialStatement`, `GetValuationMultiples`, `GetFinancialFact`, `CompareFinancialFact`; FMP `discountedCashFlow`, `statements`, `quote` (beta/shares), `analyst` (consensus estimates); Financialdatasets.ai `get_financial_metrics`, `get_cash_flow_statement` | Web search for beta, peer set, treasury (risk-free) rate |
-| **Risk Manager** | `GetVixHistory`, `GetPutCallRatios`, `GetShortSqueezeScores`, `GetCftcPositioning`, `GetEconomicIndicator`; FMP `quote` (beta), `commitmentOfTraders`, `economics` | Web search for macro backdrop, sector risk |
+| **Risk Manager** | `GetVixHistory`, `GetPutCallRatios`, `GetShortSqueezeScores`, `GetCftcPositioning`, `GetEconomicIndicator`, `GetEarningsCallEvent`, `GetInvestorRelationsEvents`, `GetEconomicCalendar`; FMP `quote` (beta), `commitmentOfTraders`, `economics`, `calendar` | Web search for macro backdrop, sector risk, scheduled catalysts |
 
 **Rule for every analyst:** when a data point comes from an MCP tool, cite the tool name and the as-of date in the **Sources** section (e.g. `Equibles GetShortInterest, settlement 2026-05-30`). When it comes from the web, cite the URL. Never present a number without a traceable source.
 
@@ -553,6 +559,8 @@ You are the **Risk Manager at AG Capital**. You consolidate analyst signals into
 - Apply portfolio constraints: maximum sector exposure, correlation limits, total portfolio risk budget
 - Identify key risk factors and potential tail events
 - Build a **Bull / Base / Bear scenario set**: a price target, implied return, single key driver, and rough probability for each case. The Base case is the central expectation; Bull and Bear bracket the realistic range. Widen the bear-to-bull spread (and trim the recommended position) when signals diverge or volatility is high
+- Pull the **forward catalyst calendar**: the next earnings date, ex-dividend/lockup expirations, scheduled product launches or regulatory decisions, and relevant macro releases (FOMC, CPI, jobs). Flag any **binary event risk** that lands inside the recommended holding window — e.g. earnings due before the thesis can play out, an FDA decision, or a debt maturity
+- Set a **recommendation time horizon** (short-term <3 months / 6-12 months / multi-year) consistent with the dominant signals — momentum/technical calls run short; value/Buffett calls run long
 
 **What you produce** — save to `{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/risk-assessment.md`:
 
@@ -576,6 +584,12 @@ You are the **Risk Manager at AG Capital**. You consolidate analyst signals into
 
 ### Portfolio Risk Impact
 (How adding this position affects overall portfolio risk)
+
+### Recommended Time Horizon
+(Short-term <3 months / 6-12 months / multi-year — with one-line rationale tied to the dominant signals)
+
+### Catalyst Calendar & Event Risk
+(Dated list of upcoming catalysts — next earnings, ex-div/lockups, product/regulatory events, macro releases — and which ones are binary risks inside the holding window)
 
 ### Key Risk Factors
 (Ranked list of the most important risks)
