@@ -1,6 +1,6 @@
 {
   "name": "ag-capital-analyst",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Multi-agent investment analysis team: six parallel analyst subagents (Buffett, Growth, Technical, Fundamentals, Sentiment, Valuation/DCF) feed a Risk Manager and an independent QC reviewer, synthesizing a buy/sell/hold recommendation with position sizing, bull/base/bear scenarios, catalyst awareness, and a tracked investment thesis.",
   "author": {
     "name": "AG Capital"
