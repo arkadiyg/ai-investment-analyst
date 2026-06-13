@@ -15,19 +15,22 @@ Two skills are available:
 │   └── marketplace.json          # Marketplace manifest
 ├── ag-capital-analyst/           # ag-capital-analyst plugin
 │   ├── .claude-plugin/plugin.json
-│   └── skills/ag-capital-analyst/SKILL.md
+│   └── skills/ag-capital-analyst/
+│       ├── SKILL.md              # Orchestrator (workflow, output, registry)
+│       └── references/           # Per-role definitions (8 analyst/reviewer roles)
 ├── ppm-risk-review/              # ppm-risk-review skill
 │   ├── .claude-plugin/plugin.json
 │   ├── SKILL.md
 │   ├── references/               # Rubric, diligence sources, script guide
 │   └── scripts/                  # Node.js Word document build scripts
+├── ag-capital-analyst.skill      # Installable .skill bundle (Claude.ai)
 ├── ppm-risk-review.skill         # Installable .skill bundle (Claude.ai)
 └── ag-analysis/                  # Sample outputs (DBMF, FTLS)
 ```
 
 ## The ag-capital-analyst plugin
 
-Spawns five analyst subagents in parallel, each pulling live financial data, then routes their signals through a Risk Manager and synthesizes a final recommendation.
+Spawns six analyst subagents in parallel, each pulling live financial data, then routes their signals through a Risk Manager and an independent QC reviewer before synthesizing a final recommendation.
 
 | Analyst | Lens |
 |---|---|
@@ -35,9 +38,10 @@ Spawns five analyst subagents in parallel, each pulling live financial data, the
 | Growth | TAM, revenue trajectory, disruption potential |
 | Technical | Price action, momentum, support/resistance |
 | Fundamentals | Financial statements, ratios, valuation multiples |
-| Sentiment | News flow, analyst opinion, social signals |
+| Sentiment | News flow, analyst opinion, short interest, social signals |
+| Valuation | Quantitative DCF + comps, triangulated fair value |
 
-The Portfolio Manager (the orchestrator) consolidates the five signal reports, hands them to a Risk Manager subagent for risk assessment, and produces a final deliverable with a recommendation, confidence score, price target, position size, and key risks — written for an inexperienced investor.
+The Portfolio Manager (the orchestrator) consolidates the six signal reports, hands them to a Risk Manager subagent for risk assessment (volatility-adjusted position sizing, bull/base/bear scenarios, catalyst calendar), runs an independent QC review pass, and produces a final deliverable with a recommendation, confidence score, price target, position size, time horizon, and key risks — written for an inexperienced investor. Each run also updates a per-ticker **thesis note** with an append-only conviction log. Role definitions live in `skills/ag-capital-analyst/references/`.
 
 ### Trigger phrases
 
@@ -47,10 +51,13 @@ The Portfolio Manager (the orchestrator) consolidates the five signal reports, h
 
 Each run produces a folder named `{TICKER} - {Security Name}/` containing:
 
-- `buffett-signal.md`, `growth-signal.md`, `technical-signal.md`, `fundamentals-signal.md`, `sentiment-signal.md`
+- `buffett-signal.md`, `growth-signal.md`, `technical-signal.md`, `fundamentals-signal.md`, `sentiment-signal.md`, `valuation-signal.md`
 - `all-signals.md` — consolidated signals
 - `risk-assessment.md` — Risk Manager output
+- `qc-review.md` — independent QC review (PASS/FIX)
 - `final-recommendation.md` — final synthesis
+
+Plus a living `_theses/{TICKER} - {Security Name}.md` note that accrues a dated conviction log across runs.
 
 In Claude Code, reports are written directly into the user's Obsidian vault so they appear alongside other investment notes. In the Anthropic Agent Skills runtime (Claude.ai), they land under `/home/user/workspace/ag-analysis`. See `ag-analysis/` in this repo for example outputs (DBMF, FTLS).
 
@@ -84,10 +91,10 @@ The same skill works as an Anthropic Agent Skill on Claude.ai (Pro / Team / Ente
 
 ### Install
 
-1. Download the skill file from the latest release:
-   [`ag-capital-analyst.md`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.2.4/ag-capital-analyst.md)
+1. Download the skill bundle from the latest release:
+   [`ag-capital-analyst.skill`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.2.5/ag-capital-analyst.skill)
 2. In Claude.ai, open **Settings → Capabilities → Skills** (the exact path may vary by plan; see the [official Skills setup guide](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills) for the current UI flow).
-3. Click **Upload skill** (or **Create skill** → **Upload file**) and select the downloaded `ag-capital-analyst.md`.
+3. Click **Upload skill** (or **Create skill** → **Upload file**) and select the downloaded `ag-capital-analyst.skill`.
 4. Enable the skill for the workspace or project where you want to use it.
 
 Once enabled, the skill auto-activates when you ask Claude to analyze a ticker, sector, or investment thesis (same trigger phrases as the Claude Code plugin).
@@ -130,7 +137,7 @@ Three `.docx` deliverables saved alongside the source PPM:
 
 Download the `.skill` bundle from the latest release and upload it in **Settings → Capabilities → Skills**:
 
-[`ppm-risk-review.skill`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.2.4/ppm-risk-review.skill)
+[`ppm-risk-review.skill`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.2.5/ppm-risk-review.skill)
 
 ## Disclaimer
 
