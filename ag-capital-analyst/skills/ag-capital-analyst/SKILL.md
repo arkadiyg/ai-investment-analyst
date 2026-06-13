@@ -103,6 +103,19 @@ Render the final recommendation using the **Output Format** below, then save it 
 
 In the Analyst Signal Summary table, each analyst name must be an Obsidian wiki link to its signal file — substitute the actual ticker for `{TICKER}`. Because the link is inside a markdown table cell, the pipe separator MUST be escaped with a backslash (`\|`): `[[{TICKER}-buffett-signal\|Buffett]]`, `[[{TICKER}-growth-signal\|Growth]]`, `[[{TICKER}-technical-signal\|Technical]]`, `[[{TICKER}-fundamentals-signal\|Fundamentals]]`, `[[{TICKER}-sentiment-signal\|Sentiment]]`, `[[{TICKER}-valuation-signal\|Valuation]]`. If a Risk Manager row is included, link it as `[[{TICKER}-risk-assessment\|Risk Manager]]`.
 
+### Step 8 — Update the Thesis Tracker
+
+Maintain a **living thesis note per ticker** so conviction is tracked over time, not just at a single point in time. This note lives at a **stable path** (not the date-prefixed analysis folder, which is a point-in-time snapshot):
+
+`{WORKSPACE}/_theses/{TICKER} - {Security Name}.md`
+
+- **If the note does not exist:** create it from the **Thesis Note Format** (below), populating the thesis statement, 3-5 pillars, 3-5 key risks, catalysts, price target, and stop-loss from this run, and start the Update Log with today's dated entry and conviction (High / Medium / Low).
+- **If the note already exists:** do **not** overwrite it. Read it first, then (a) refresh the **Current Snapshot** block (recommendation, conviction, price target, current price, last-updated date), and (b) **append** a new dated entry to the Update Log describing what changed since the prior entry, which pillar or risk it affects, the action taken (Initiate / Add / Trim / Exit / Hold), and the updated conviction. **Preserve every prior log entry** — the log is append-only.
+
+In each log entry, link back to this run's deliverable so the thesis threads through to the underlying analysis: `[[{MM-DD-YYYY} - {TICKER} - {Security Name}/{TICKER}-final-recommendation\|{MM-DD-YYYY} analysis]]`.
+
+(If `Write` is denied in Claude Code, present the thesis-note content inline and note that it should be saved to the path above.)
+
 ---
 
 ## Output Format
@@ -154,6 +167,56 @@ Bullet list of the most important risks, in plain language.
 #### What to Watch
 
 Upcoming catalysts or events that could change the thesis (earnings dates, product launches, regulatory decisions, etc.).
+
+---
+
+## Thesis Note Format
+
+The living thesis note (Step 8) uses this structure. The YAML frontmatter lets Obsidian (Dataview / Bases) query conviction and recommendation across the whole book of theses.
+
+```
+---
+ticker: {TICKER}
+name: {Security Name}
+position: long / short / watch
+recommendation: BUY / SELL / HOLD
+conviction: High / Medium / Low
+price_target: XX.XX
+opened: {MM-DD-YYYY}
+last_updated: {MM-DD-YYYY}
+---
+
+# {TICKER} — {Security Name} Investment Thesis
+
+## Current Snapshot
+- **Recommendation:** BUY / SELL / HOLD
+- **Conviction:** High / Medium / Low
+- **Price Target (fair value):** $XX.XX
+- **Current Price (as of {MM-DD-YYYY}):** $XX.XX
+- **Stop-Loss / Exit Trigger:** $XX.XX or condition
+
+## Thesis Statement
+(1-2 sentences: why we hold/avoid this and the single core driver.)
+
+## Thesis Pillars
+1. (supporting argument)
+2. ...
+(3-5 pillars)
+
+## Key Risks
+1. (what would invalidate the thesis)
+2. ...
+(3-5 risks)
+
+## Catalysts to Watch
+- (event + approximate date)
+
+## Update Log
+### {MM-DD-YYYY} — Conviction: High/Medium/Low — Action: Initiate/Add/Trim/Exit/Hold
+- **What changed:** (new development since the prior entry, or "Initiated coverage")
+- **Thesis impact:** strengthens / weakens / neutralizes — pillar/risk #N
+- **Source:** [[{MM-DD-YYYY} - {TICKER} - {Security Name}/{TICKER}-final-recommendation\|{MM-DD-YYYY} analysis]]
+```
 
 ---
 
@@ -565,4 +628,5 @@ Severity guide: **critical** = sourcing or internal-consistency failure (must fi
 - **Audience:** All output is for an inexperienced investor. Avoid jargon without explanation. When you use a financial term, briefly define it in parentheses.
 - **Live data is required:** Every analyst must search for current data. Do not rely solely on training knowledge.
 - **Signal weighting:** As Portfolio Manager, you decide how much weight each analyst signal gets. A mature value stock leans on Buffett and Fundamentals; a high-growth tech stock leans on Growth and Technical. Explain your weighting in the final thesis.
+- **Thesis tracker is append-only:** When updating an existing thesis note (Step 8), never overwrite or delete prior Update Log entries — read, refresh the snapshot, and append. The log's value is the conviction trail over time.
 - **Disclaimers:** End every analysis with: *"This analysis is for educational purposes only and is not financial advice. Always consult a qualified financial advisor before making investment decisions."*
