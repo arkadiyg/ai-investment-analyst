@@ -61,7 +61,7 @@ Each analyst subagent receives:
 - (Claude Code) An **inline-fallback instruction**: if the Write tool is denied at the target path, return the full report content inline so the orchestrator can save it
 
 **File convention:** Each analyst saves their report to:
-`{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/{role}-signal.md`
+`{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/{TICKER}-{role}-signal.md`
 
 Spawn all six in parallel:
 
@@ -79,10 +79,10 @@ After all six analysts complete, read their signal reports from the workspace fi
 ### Step 4 — Route to Risk Manager
 
 Compile all six signal reports into a single consolidated file at:
-`{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/all-signals.md`
+`{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/{TICKER}-all-signals.md`
 
 Spawn the **Risk Manager** as a research subagent (role definition: `references/risk-manager.md`), passing the path to the consolidated signals file. The Risk Manager saves its assessment to:
-`{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/risk-assessment.md`
+`{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/{TICKER}-risk-assessment.md`
 
 ### Step 5 — Synthesize Final Decision
 
@@ -95,11 +95,11 @@ Read the Risk Manager's assessment. Combine it with the individual analyst signa
 - If **PASS**: proceed to Step 7.
 - If **FIX**: address every issue the reviewer raised (correct the number, add the missing source, reconcile the inconsistency, etc.), then proceed. If any fix materially changes the recommendation, price target, or position size, re-run the QC Reviewer on the corrected draft before delivering.
 
-Save the reviewer's report to `{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/qc-review.md`. Never deliver a recommendation that still has open critical (sourcing or internal-consistency) findings.
+Save the reviewer's report to `{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/{TICKER}-qc-review.md`. Never deliver a recommendation that still has open critical (sourcing or internal-consistency) findings.
 
 ### Step 7 — Save and Present the Final Synthesis
 
-Render the final recommendation using the **Output Format** below, then save it to `{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/final-recommendation.md` so the full deliverable is persisted alongside the intermediate artifacts. After saving, present the same content to the user. (If `Write` is denied in Claude Code, present inline only — do not lose the synthesis.)
+Render the final recommendation using the **Output Format** below, then save it to `{WORKSPACE}/{MM-DD-YYYY} - {TICKER} - {Security Name}/{TICKER}-final-recommendation.md` so the full deliverable is persisted alongside the intermediate artifacts. After saving, present the same content to the user. (If `Write` is denied in Claude Code, present inline only — do not lose the synthesis.)
 
 In the Analyst Signal Summary table, each analyst name must be an Obsidian wiki link to its signal file — substitute the actual ticker for `{TICKER}`. Because the link is inside a markdown table cell, the pipe separator MUST be escaped with a backslash (`\|`): `[[{TICKER}-buffett-signal\|Buffett]]`, `[[{TICKER}-growth-signal\|Growth]]`, `[[{TICKER}-technical-signal\|Technical]]`, `[[{TICKER}-fundamentals-signal\|Fundamentals]]`, `[[{TICKER}-sentiment-signal\|Sentiment]]`, `[[{TICKER}-valuation-signal\|Valuation]]`. If a Risk Manager row is included, link it as `[[{TICKER}-risk-assessment\|Risk Manager]]`.
 
