@@ -49,7 +49,7 @@ The Portfolio Manager (the orchestrator) consolidates the six signal reports, ha
 
 ### Output
 
-Each run produces a folder named `{TICKER} - {Security Name}/` containing:
+Each run produces a folder named `{MM-DD-YYYY} - {TICKER} - {Security Name}/` (the date prefix is the run date) containing:
 
 - `{TICKER}-buffett-signal.md`, `{TICKER}-growth-signal.md`, `{TICKER}-technical-signal.md`, `{TICKER}-fundamentals-signal.md`, `{TICKER}-sentiment-signal.md`, `{TICKER}-valuation-signal.md`
 - `{TICKER}-all-signals.md` — consolidated signals
