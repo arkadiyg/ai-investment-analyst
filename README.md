@@ -51,11 +51,13 @@ The Portfolio Manager (the orchestrator) consolidates the six signal reports, ha
 
 Each run produces a folder named `{TICKER} - {Security Name}/` containing:
 
-- `buffett-signal.md`, `growth-signal.md`, `technical-signal.md`, `fundamentals-signal.md`, `sentiment-signal.md`, `valuation-signal.md`
-- `all-signals.md` — consolidated signals
-- `risk-assessment.md` — Risk Manager output
-- `qc-review.md` — independent QC review (PASS/FIX)
-- `final-recommendation.md` — final synthesis
+- `{TICKER}-buffett-signal.md`, `{TICKER}-growth-signal.md`, `{TICKER}-technical-signal.md`, `{TICKER}-fundamentals-signal.md`, `{TICKER}-sentiment-signal.md`, `{TICKER}-valuation-signal.md`
+- `{TICKER}-all-signals.md` — consolidated signals
+- `{TICKER}-risk-assessment.md` — Risk Manager output
+- `{TICKER}-qc-review.md` — independent QC review (PASS/FIX)
+- `{TICKER}-final-recommendation.md` — final synthesis
+
+All files are prefixed with the ticker so they stay unambiguous across folders and resolve correctly via the Obsidian wiki links in the recommendation.
 
 Plus a living `_theses/{TICKER} - {Security Name}.md` note that accrues a dated conviction log across runs.
 
@@ -92,7 +94,7 @@ The same skill works as an Anthropic Agent Skill on Claude.ai (Pro / Team / Ente
 ### Install
 
 1. Download the skill bundle from the latest release:
-   [`ag-capital-analyst.skill`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.2.7/ag-capital-analyst.skill)
+   [`ag-capital-analyst.skill`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.2.8/ag-capital-analyst.skill)
 2. In Claude.ai, open **Settings → Capabilities → Skills** (the exact path may vary by plan; see the [official Skills setup guide](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills) for the current UI flow).
 3. Click **Upload skill** (or **Create skill** → **Upload file**) and select the downloaded `ag-capital-analyst.skill`.
 4. Enable the skill for the workspace or project where you want to use it.
@@ -137,7 +139,7 @@ Three `.docx` deliverables saved alongside the source PPM:
 
 Download the `.skill` bundle from the latest release and upload it in **Settings → Capabilities → Skills**:
 
-[`ppm-risk-review.skill`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.2.7/ppm-risk-review.skill)
+[`ppm-risk-review.skill`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.2.8/ppm-risk-review.skill)
 
 ## Disclaimer
 
