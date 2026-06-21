@@ -131,6 +131,8 @@ Three Markdown deliverables saved alongside the source PPM (a `.docx` copy of ea
 - `[Fund Name] - Sponsor Diligence Questionnaire.md` — 25–35 questions to the sponsor's IR contact
 - `[Fund Name] - Plain-English Summary.md` — jargon-free summary for non-specialist family members
 
+If the deal folder contains a YouTube link (sponsor webinar or LP "deal review"), the skill fetches and cleans every linked video's transcript (`scripts/fetch_transcript.sh`, via `yt-dlp`), saves a `… - Transcript.md` + analytical `… - Summary.md` per video, and folds the corroborating evidence into the memos.
+
 ### Trigger phrases
 
 > "review the PPM in this folder", "what risks should I surface to the CIO on this fund?", "what should I ask the sponsor about this offering?", "summarize this fund document for my family"
