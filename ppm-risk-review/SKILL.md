@@ -1,6 +1,6 @@
 ---
 name: ppm-risk-review
-description: "Family-office-grade due diligence on a Private Placement Memorandum (PPM) or other private-fund offering document. Trigger this skill any time the user references a PPM, OM (offering memorandum), private placement, Reg D 506(b)/506(c), Form D, subscription agreement, LPA, side letter, family office investment memo, CIO memo, sponsor diligence, or asks 'what risks should I surface' about a private investment, even if they do not explicitly ask for a PPM review. Also trigger when the user points at a PDF in a folder named PPM/PPMs/Offerings/Funds/Investments and asks to review or summarize. Produces three deliverables in the user's selected investing folder, each saved in BOTH Word (.docx) and Markdown (.md) format: (1) a CIO-grade risk memo, (2) a sponsor diligence questionnaire, and (3) a plain-English summary for non-specialist family members. Do NOT use this skill for public-market equity/credit research, mortgage documents, residential real-estate purchase contracts, or term-sheet drafting from scratch."
+description: "Family-office-grade due diligence on a Private Placement Memorandum (PPM) or other private-fund offering document. Trigger this skill any time the user references a PPM, OM (offering memorandum), private placement, Reg D 506(b)/506(c), Form D, subscription agreement, LPA, side letter, family office investment memo, CIO memo, sponsor diligence, or asks 'what risks should I surface' about a private investment, even if they do not explicitly ask for a PPM review. Also trigger when the user points at a PDF in a folder named PPM/PPMs/Offerings/Funds/Investments and asks to review or summarize. When the deal folder also contains a link to a YouTube video (e.g. a sponsor webinar or an LP 'deal review'), the skill fetches and cleans the transcript and folds it into the memos as corroborating evidence. Produces three deliverables in the user's selected investing folder, each saved as Markdown (.md) by default: (1) a CIO-grade risk memo, (2) a sponsor diligence questionnaire, and (3) a plain-English summary for non-specialist family members. A Word (.docx) copy of each is produced ONLY when the user explicitly asks for Word/.docx. Do NOT use this skill for public-market equity/credit research, mortgage documents, residential real-estate purchase contracts, or term-sheet drafting from scratch."
 license: Internal use only
 ---
 
@@ -32,23 +32,34 @@ Family offices see a steady stream of private-fund offering documents. Reading t
 
 1. **Locate the document.** Look in the folder the user pointed at, or in any subfolder named `PPM`, `PPMs`, `Offerings`, `Funds`, or `Investments` under the user's selected investing folder. If multiple PDFs exist, ask which one.
 2. **Extract text.** Use `pdftotext -layout` (poppler) to dump the PDF. PPMs are 40–200 pages of dense text and reading the PDF visually is too slow; the layout-preserved text is sufficient for nearly all analysis.
-3. **Run the rubric.** Walk the document against the rubric in `references/rubric.md` and capture findings against each bucket. Always look for what is **missing** as well as what is present — missing fee tables, missing track record, empty exhibits, and missing GP commitment are the highest-signal risks.
-4. **External diligence.** Use SEC EDGAR (search by sponsor entity name → look for Form D / D-A) to reconcile the marketed raise to actual capital raised. Use a web search to check for the sponsor's other businesses, regulatory actions, and parallel funds. Note any meaningful gap between marketing and reality.
-5. **Draft the three deliverables.** Use the Node scripts in `scripts/` as starting points; they encode the layout, fonts, and bullet-numbering that work reliably across Word and Google Docs.
-6. **Produce a Markdown copy of each deliverable.** After each `.docx` is built, convert it to a sibling `.md` with the bundled `scripts/docx2md.sh` (`bash scripts/docx2md.sh "<file>.docx" "<file>.md"`). The Word file is the source of truth; the Markdown is generated from it so the two never drift. This both creates the Markdown deliverable and validates that the `.docx` parses cleanly. The script wraps `pandoc --wrap=none` (which keeps paragraphs and table cells on one line) and additionally grafts pandoc's own heading styles into a throwaway copy of the `.docx` before converting — without that step, the Node `docx` library's heading styles are not recognized by pandoc and every section title comes through as plain text. The real `.docx` is left untouched. (If you ever convert by hand, plain `pandoc "<file>.docx" --wrap=none -o "<file>.md"` works but loses the `#`/`##` heading markers.)
-7. **Save outputs to the user's investing folder.** Use the file names below — both the `.docx` and the `.md` for each deliverable. Do NOT save to the temporary outputs folder only — the user must be able to open these from their cloud-synced folder.
-8. **Update the pipeline summary.** Append this review to `ppm-pipeline-summary.md` (see "Updating the pipeline summary" below). Do this on every completed review so the running log stays current.
-9. **Reply with `computer://` links and a one-paragraph summary** of the headline risks and the recommendation, then stop. Do not explain the documents at length in chat — the documents are the deliverable.
+3. **Ingest any video deal-review transcript.** Scan the deal folder (and its immediate subfolders) for YouTube links — `youtube.com/watch`, `youtu.be/`, `youtube.com/live/` — in any text-like file (`.txt`, `.md`, `.url`, `.webloc`, loose notes); a URL in the user's prompt counts too. **Process every distinct video** (de-duplicate by the 11-character video id; do NOT ask which one). For each, run `bash scripts/fetch_transcript.sh "<url>" "<Source> - Transcript.md" "[Fund legal name]"` to write the raw `Transcript.md` in the deal folder, then author an analytical `<Source> - Summary.md`. Treat the transcript as **corroborating evidence**, not an offering document — see `references/video_transcript_guide.md`. If a video has no captions the script exits 2; skip that video and continue with document-only analysis. If no link is present, skip this step.
+4. **Run the rubric.** Walk the document against the rubric in `references/rubric.md` and capture findings against each bucket. Always look for what is **missing** as well as what is present — missing fee tables, missing track record, empty exhibits, and missing GP commitment are the highest-signal risks. Where a transcript exists, use it to corroborate findings, capture sponsor on-the-record admissions, and surface new questions — never to override the documents.
+5. **External diligence.** Use SEC EDGAR (search by sponsor entity name → look for Form D / D-A) to reconcile the marketed raise to actual capital raised. Use a web search to check for the sponsor's other businesses, regulatory actions, and parallel funds. Note any meaningful gap between marketing and reality.
+6. **Draft the three deliverables as Markdown.** Markdown (`.md`) is the default and only required output. Write each deliverable directly as a `.md` file in the user's investing folder, following the drafting style below. The Node scripts in `scripts/` remain available as Word templates — they encode the layout, fonts, and bullet-numbering — but are used only when the user asks for a Word copy (see step 6).
+   When a transcript exists, fold it into the deliverables: add an **"Independent corroboration (video deal review)"** section to the CIO memo mapping the transcript to the top findings (and re-tally any FATAL/NEGOTIABLE/ASK/STRENGTH counts it changes); add any new ASK items it surfaced to the questionnaire; refresh the plain-English summary only if the video materially changes the lay picture. The per-video `Summary.md` is mirrored to the vault; the bulky `Transcript.md` stays in the deal folder only.
+7. **Word (.docx) is optional — produce it only if the user asks.** If (and only if) the user explicitly requests a Word/`.docx` version, build it with the Node scripts in `scripts/`, then regenerate the sibling `.md` from the freshly built `.docx` with `bash scripts/docx2md.sh "<file>.docx" "<file>.md"` so the Word file is the source of truth and the two never drift. The `docx2md.sh` step also validates that the `.docx` parses cleanly. The script wraps `pandoc --wrap=none` (which keeps paragraphs and table cells on one line) and additionally grafts pandoc's own heading styles into a throwaway copy of the `.docx` before converting — without that step, the Node `docx` library's heading styles are not recognized by pandoc and every section title comes through as plain text. The real `.docx` is left untouched. (If you ever convert by hand, plain `pandoc "<file>.docx" --wrap=none -o "<file>.md"` works but loses the `#`/`##` heading markers.) If the user did NOT ask for Word, skip this step entirely.
+
+   **Regenerating Word from an edited Markdown (the reverse direction).** If a `.docx` *already exists* but the `.md` has since been edited directly (e.g., you folded a transcript into the memos, so the `.md` is now the source of truth), do NOT rebuild from the Node script — regenerate the `.docx` from the updated `.md` with pandoc, using the existing `.docx` as the style template: `pandoc "<file>.md" --reference-doc="<file>.docx" -o "/tmp/regen.docx" && mv "/tmp/regen.docx" "<file>.docx"`. The reference-doc carries the house style forward (Calibri, US Letter, 1-inch margins, the `CONFIDENTIAL — FAMILY OFFICE INTERNAL` header, and the `Page X of Y` footer) while taking all content from the `.md`. Write to a temp file and `mv` over the original (pandoc reads the reference fully first, but the temp keeps it clean). Validate with a quick `pandoc "<file>.docx" -t markdown >/dev/null` round-trip before replacing. See `references/templates_guide.md` for details.
+8. **Save outputs to the user's investing folder.** Use the file names below — the `.md` for each deliverable always, plus the `.docx` only when Word was requested, plus any `Transcript.md`/`Summary.md`. Do NOT save to the temporary outputs folder only — the user must be able to open these from their cloud-synced folder.
+9. **Update the pipeline summary.** Append this review to `ppm-pipeline-summary.md` (see "Updating the pipeline summary" below). Do this on every completed review so the running log stays current. Note in the row when a video transcript was ingested and what it corroborated.
+10. **Reply with `computer://` links and a one-paragraph summary** of the headline risks and the recommendation, then stop. Do not explain the documents at length in chat — the documents are the deliverable.
 
 ## Output file names
 
-Always use this exact pattern (replace `[Fund Name]` with the fund's legal name). Each deliverable is saved twice — once as Word, once as Markdown with the same base name:
+Always use this exact pattern (replace `[Fund Name]` with the fund's legal name). The `.md` is always produced; the `.docx` is produced only when the user asked for Word. When both exist they share the same base name:
 
-- `[Fund Name] - CIO Risk Memo.docx` and `[Fund Name] - CIO Risk Memo.md`
-- `[Fund Name] - Sponsor Diligence Questionnaire.docx` and `[Fund Name] - Sponsor Diligence Questionnaire.md`
-- `[Fund Name] - Plain-English Summary.docx` and `[Fund Name] - Plain-English Summary.md`
+- `[Fund Name] - CIO Risk Memo.md` (and `.docx` only if Word was requested)
+- `[Fund Name] - Sponsor Diligence Questionnaire.md` (and `.docx` only if Word was requested)
+- `[Fund Name] - Plain-English Summary.md` (and `.docx` only if Word was requested)
 
 Save them in the same folder the user pointed at (so they live next to the PPM).
+
+When a video transcript was ingested, also save (named after the source, not the fund — one pair per video):
+
+- `[Source] - [Title] ([Date]) - Transcript.md` — raw cleaned transcript, deal folder only (do not mirror to the vault)
+- `[Source] - [Title] ([Date]) - Summary.md` — analytical summary, mirrored to the vault
+
+e.g. `Sunrise Capital - PassivePockets Deal Review (2026-03-19) - Transcript.md`.
 
 ## Rubric, in one paragraph
 
@@ -65,6 +76,7 @@ For the **plain-English summary**: short paragraphs, no jargon, with a glossary 
 ## Tools the skill uses
 
 - `pdftotext -layout <pdf> <txt>` — text extraction (poppler-utils, already installed in the Cowork sandbox)
+- `scripts/fetch_transcript.sh <youtube_url> <output.md> [deal_name]` — video transcript fetch + clean. Wraps `yt-dlp` (auto-installs it via `pip` if missing), pulls English captions only (no media download), de-duplicates auto-caption rolling text, chunks at ~30s with `[hh:mm:ss]` timestamps, and writes a `Transcript.md` with a YAML header. Exit 2 = no captions (skip, continue document-only). See `references/video_transcript_guide.md`.
 - `node` + `docx` — Word document generation. Install with `npm install docx` in the working directory, then run the build scripts. Do NOT install globally.
 - `scripts/docx2md.sh <file>.docx <file>.md` — Markdown generation. Wraps `pandoc --wrap=none` and fixes pandoc's failure to recognize the Node `docx` library's heading styles (it swaps pandoc's own reference `styles.xml` into a throwaway copy of the `.docx` so `#`/`##` headings render). Requires `pandoc` (already installed in the Cowork sandbox). Run once per deliverable after the `.docx` is built.
 - SEC EDGAR full-text search via available MCP tools, or `https://efts.sec.gov/LATEST/search-index?q=` if no MCP is connected. The Form D filings are public and free.
@@ -72,7 +84,7 @@ For the **plain-English summary**: short paragraphs, no jargon, with a glossary 
 
 ## How to use the bundled scripts
 
-`scripts/build_cio_memo.js`, `scripts/build_questionnaire.js`, and `scripts/build_plain_memo.js` are working Node templates. To use them on a new fund:
+`scripts/build_cio_memo.js`, `scripts/build_questionnaire.js`, and `scripts/build_plain_memo.js` are working Node templates for the Word (`.docx`) output. They are used **only when the user asks for a Word copy** — the default Markdown deliverables are written directly, not built from these scripts. Keep the templates in place; they are the canonical Word layout. To use them on a new fund (Word requested):
 
 1. Copy the script into the working directory.
 2. Edit the `children` array at the top with the new fund's facts (sponsor, vehicle, strategy, headline economics) and the bucketed findings.
@@ -107,10 +119,10 @@ Keep the entry terse — it is an index row, not a summary of the memo. The per-
 
 User: *"Review the PPM for [Fund Name] in /Investing/PPMs/[Fund Name] and tell me what risks I should surface to the CIO."*
 
-Claude (this skill triggered): extracts the PDF, walks the rubric, runs SEC EDGAR + web sponsor checks, and produces:
+Claude (this skill triggered): extracts the PDF, ingests any YouTube deal-review transcript found in the folder, walks the rubric, runs SEC EDGAR + web sponsor checks, and produces (Markdown by default):
 
-- `/Investing/PPMs/[Fund Name]/[Fund Name] - CIO Risk Memo.docx` (+ `.md`)
-- `/Investing/PPMs/[Fund Name]/[Fund Name] - Sponsor Diligence Questionnaire.docx` (+ `.md`)
-- `/Investing/PPMs/[Fund Name]/[Fund Name] - Plain-English Summary.docx` (+ `.md`)
+- `/Investing/PPMs/[Fund Name]/[Fund Name] - CIO Risk Memo.md`
+- `/Investing/PPMs/[Fund Name]/[Fund Name] - Sponsor Diligence Questionnaire.md`
+- `/Investing/PPMs/[Fund Name]/[Fund Name] - Plain-English Summary.md`
 
-Then replies with `computer://` links and a one-paragraph headline of the most material risks and the recommendation.
+Then replies with `computer://` links and a one-paragraph headline of the most material risks and the recommendation. If a YouTube link was in the folder, a `[Source] - … - Transcript.md` and `[Source] - … - Summary.md` are produced too, and the CIO memo carries an "Independent corroboration (video deal review)" section. If the user had asked for Word (e.g. *"…and give me Word versions"*), a `.docx` sibling of each deliverable is produced alongside the `.md`.
