@@ -21,8 +21,8 @@
     {
       "name": "ppm-risk-review",
       "source": "./ppm-risk-review",
-      "description": "Family-office-grade due diligence on a Private Placement Memorandum or other private-fund offering document. Produces a CIO risk memo, sponsor diligence questionnaire, and plain-English summary.",
-      "version": "1.0.0",
+      "description": "Family-office-grade due diligence on a Private Placement Memorandum or other private-fund offering document. Produces a CIO risk memo, sponsor diligence questionnaire, and plain-English summary in Markdown (Word optional on request), and ingests any linked YouTube deal-review video transcript as corroborating evidence.",
+      "version": "1.1.0",
       "author": {
         "name": "AG Capital"
       },
