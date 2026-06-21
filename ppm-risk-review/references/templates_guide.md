@@ -6,6 +6,8 @@ The `scripts/` directory contains three working Node templates that produce Word
 - `build_questionnaire.js` — Sponsor Diligence Questionnaire
 - `build_plain_memo.js` — Plain-English Summary
 
+> **Word is optional.** The default deliverables are Markdown (`.md`), written directly. Run these build scripts only when the user explicitly asks for a Word (`.docx`) copy. The templates are kept in place either way.
+
 They are intentionally redacted/edited as templates: the *layout* is generic, but the *content* references one specific fund (Allied American Land Fund) as a worked example. To use them on a new fund:
 
 ## Setup

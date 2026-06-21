@@ -1,6 +1,6 @@
 ---
 name: ppm-risk-review
-description: "Family-office-grade due diligence on a Private Placement Memorandum (PPM) or other private-fund offering document. Trigger this skill any time the user references a PPM, OM (offering memorandum), private placement, Reg D 506(b)/506(c), Form D, subscription agreement, LPA, side letter, family office investment memo, CIO memo, sponsor diligence, or asks 'what risks should I surface' about a private investment, even if they do not explicitly ask for a PPM review. Also trigger when the user points at a PDF in a folder named PPM/PPMs/Offerings/Funds/Investments and asks to review or summarize. Produces three deliverables in the user's selected investing folder, each saved in BOTH Word (.docx) and Markdown (.md) format: (1) a CIO-grade risk memo, (2) a sponsor diligence questionnaire, and (3) a plain-English summary for non-specialist family members. Do NOT use this skill for public-market equity/credit research, mortgage documents, residential real-estate purchase contracts, or term-sheet drafting from scratch."
+description: "Family-office-grade due diligence on a Private Placement Memorandum (PPM) or other private-fund offering document. Trigger this skill any time the user references a PPM, OM (offering memorandum), private placement, Reg D 506(b)/506(c), Form D, subscription agreement, LPA, side letter, family office investment memo, CIO memo, sponsor diligence, or asks 'what risks should I surface' about a private investment, even if they do not explicitly ask for a PPM review. Also trigger when the user points at a PDF in a folder named PPM/PPMs/Offerings/Funds/Investments and asks to review or summarize. Produces three deliverables in the user's selected investing folder, each saved as Markdown (.md) by default: (1) a CIO-grade risk memo, (2) a sponsor diligence questionnaire, and (3) a plain-English summary for non-specialist family members. A Word (.docx) copy of each is produced ONLY when the user explicitly asks for Word/.docx. Do NOT use this skill for public-market equity/credit research, mortgage documents, residential real-estate purchase contracts, or term-sheet drafting from scratch."
 license: Internal use only
 ---
 
@@ -34,19 +34,19 @@ Family offices see a steady stream of private-fund offering documents. Reading t
 2. **Extract text.** Use `pdftotext -layout` (poppler) to dump the PDF. PPMs are 40–200 pages of dense text and reading the PDF visually is too slow; the layout-preserved text is sufficient for nearly all analysis.
 3. **Run the rubric.** Walk the document against the rubric in `references/rubric.md` and capture findings against each bucket. Always look for what is **missing** as well as what is present — missing fee tables, missing track record, empty exhibits, and missing GP commitment are the highest-signal risks.
 4. **External diligence.** Use SEC EDGAR (search by sponsor entity name → look for Form D / D-A) to reconcile the marketed raise to actual capital raised. Use a web search to check for the sponsor's other businesses, regulatory actions, and parallel funds. Note any meaningful gap between marketing and reality.
-5. **Draft the three deliverables.** Use the Node scripts in `scripts/` as starting points; they encode the layout, fonts, and bullet-numbering that work reliably across Word and Google Docs.
-6. **Produce a Markdown copy of each deliverable.** After each `.docx` is built, convert it to a sibling `.md` with the bundled `scripts/docx2md.sh` (`bash scripts/docx2md.sh "<file>.docx" "<file>.md"`). The Word file is the source of truth; the Markdown is generated from it so the two never drift. This both creates the Markdown deliverable and validates that the `.docx` parses cleanly. The script wraps `pandoc --wrap=none` (which keeps paragraphs and table cells on one line) and additionally grafts pandoc's own heading styles into a throwaway copy of the `.docx` before converting — without that step, the Node `docx` library's heading styles are not recognized by pandoc and every section title comes through as plain text. The real `.docx` is left untouched. (If you ever convert by hand, plain `pandoc "<file>.docx" --wrap=none -o "<file>.md"` works but loses the `#`/`##` heading markers.)
-7. **Save outputs to the user's investing folder.** Use the file names below — both the `.docx` and the `.md` for each deliverable. Do NOT save to the temporary outputs folder only — the user must be able to open these from their cloud-synced folder.
+5. **Draft the three deliverables as Markdown.** Markdown (`.md`) is the default and only required output. Write each deliverable directly as a `.md` file in the user's investing folder, following the drafting style below. The Node scripts in `scripts/` remain available as Word templates — they encode the layout, fonts, and bullet-numbering — but are used only when the user asks for a Word copy (see step 6).
+6. **Word (.docx) is optional — produce it only if the user asks.** If (and only if) the user explicitly requests a Word/`.docx` version, build it with the Node scripts in `scripts/`, then regenerate the sibling `.md` from the freshly built `.docx` with `bash scripts/docx2md.sh "<file>.docx" "<file>.md"` so the Word file is the source of truth and the two never drift. The `docx2md.sh` step also validates that the `.docx` parses cleanly. The script wraps `pandoc --wrap=none` (which keeps paragraphs and table cells on one line) and additionally grafts pandoc's own heading styles into a throwaway copy of the `.docx` before converting — without that step, the Node `docx` library's heading styles are not recognized by pandoc and every section title comes through as plain text. The real `.docx` is left untouched. (If you ever convert by hand, plain `pandoc "<file>.docx" --wrap=none -o "<file>.md"` works but loses the `#`/`##` heading markers.) If the user did NOT ask for Word, skip this step entirely.
+7. **Save outputs to the user's investing folder.** Use the file names below — the `.md` for each deliverable always, plus the `.docx` only when Word was requested. Do NOT save to the temporary outputs folder only — the user must be able to open these from their cloud-synced folder.
 8. **Update the pipeline summary.** Append this review to `ppm-pipeline-summary.md` (see "Updating the pipeline summary" below). Do this on every completed review so the running log stays current.
 9. **Reply with `computer://` links and a one-paragraph summary** of the headline risks and the recommendation, then stop. Do not explain the documents at length in chat — the documents are the deliverable.
 
 ## Output file names
 
-Always use this exact pattern (replace `[Fund Name]` with the fund's legal name). Each deliverable is saved twice — once as Word, once as Markdown with the same base name:
+Always use this exact pattern (replace `[Fund Name]` with the fund's legal name). The `.md` is always produced; the `.docx` is produced only when the user asked for Word. When both exist they share the same base name:
 
-- `[Fund Name] - CIO Risk Memo.docx` and `[Fund Name] - CIO Risk Memo.md`
-- `[Fund Name] - Sponsor Diligence Questionnaire.docx` and `[Fund Name] - Sponsor Diligence Questionnaire.md`
-- `[Fund Name] - Plain-English Summary.docx` and `[Fund Name] - Plain-English Summary.md`
+- `[Fund Name] - CIO Risk Memo.md` (and `.docx` only if Word was requested)
+- `[Fund Name] - Sponsor Diligence Questionnaire.md` (and `.docx` only if Word was requested)
+- `[Fund Name] - Plain-English Summary.md` (and `.docx` only if Word was requested)
 
 Save them in the same folder the user pointed at (so they live next to the PPM).
 
@@ -72,7 +72,7 @@ For the **plain-English summary**: short paragraphs, no jargon, with a glossary 
 
 ## How to use the bundled scripts
 
-`scripts/build_cio_memo.js`, `scripts/build_questionnaire.js`, and `scripts/build_plain_memo.js` are working Node templates. To use them on a new fund:
+`scripts/build_cio_memo.js`, `scripts/build_questionnaire.js`, and `scripts/build_plain_memo.js` are working Node templates for the Word (`.docx`) output. They are used **only when the user asks for a Word copy** — the default Markdown deliverables are written directly, not built from these scripts. Keep the templates in place; they are the canonical Word layout. To use them on a new fund (Word requested):
 
 1. Copy the script into the working directory.
 2. Edit the `children` array at the top with the new fund's facts (sponsor, vehicle, strategy, headline economics) and the bucketed findings.
@@ -107,10 +107,10 @@ Keep the entry terse — it is an index row, not a summary of the memo. The per-
 
 User: *"Review the PPM for [Fund Name] in /Investing/PPMs/[Fund Name] and tell me what risks I should surface to the CIO."*
 
-Claude (this skill triggered): extracts the PDF, walks the rubric, runs SEC EDGAR + web sponsor checks, and produces:
+Claude (this skill triggered): extracts the PDF, walks the rubric, runs SEC EDGAR + web sponsor checks, and produces (Markdown by default):
 
-- `/Investing/PPMs/[Fund Name]/[Fund Name] - CIO Risk Memo.docx` (+ `.md`)
-- `/Investing/PPMs/[Fund Name]/[Fund Name] - Sponsor Diligence Questionnaire.docx` (+ `.md`)
-- `/Investing/PPMs/[Fund Name]/[Fund Name] - Plain-English Summary.docx` (+ `.md`)
+- `/Investing/PPMs/[Fund Name]/[Fund Name] - CIO Risk Memo.md`
+- `/Investing/PPMs/[Fund Name]/[Fund Name] - Sponsor Diligence Questionnaire.md`
+- `/Investing/PPMs/[Fund Name]/[Fund Name] - Plain-English Summary.md`
 
-Then replies with `computer://` links and a one-paragraph headline of the most material risks and the recommendation.
+Then replies with `computer://` links and a one-paragraph headline of the most material risks and the recommendation. If the user had asked for Word (e.g. *"…and give me Word versions"*), a `.docx` sibling of each file is produced alongside the `.md`.

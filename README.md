@@ -125,11 +125,11 @@ Every finding is classified **FATAL** / **NEGOTIABLE** / **ASK**. Any FATAL bloc
 
 ### Output
 
-Three `.docx` deliverables saved alongside the source PPM:
+Three Markdown deliverables saved alongside the source PPM (a `.docx` copy of each is produced only when the user asks for Word):
 
-- `[Fund Name] - CIO Risk Memo.docx` — bucketed risks, FATAL/NEGOTIABLE/ASK counts, recommendation
-- `[Fund Name] - Sponsor Diligence Questionnaire.docx` — 25–35 questions to the sponsor's IR contact
-- `[Fund Name] - Plain-English Summary.docx` — jargon-free summary for non-specialist family members
+- `[Fund Name] - CIO Risk Memo.md` — bucketed risks, FATAL/NEGOTIABLE/ASK counts, recommendation
+- `[Fund Name] - Sponsor Diligence Questionnaire.md` — 25–35 questions to the sponsor's IR contact
+- `[Fund Name] - Plain-English Summary.md` — jargon-free summary for non-specialist family members
 
 ### Trigger phrases
 
