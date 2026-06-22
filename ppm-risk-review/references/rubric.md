@@ -1,4 +1,4 @@
-# PPM Review Rubric (v2.1)
+# PPM Review Rubric (v2.2)
 
 A repeatable checklist for evaluating a private-fund offering document at family-office quality. Walk every section even if a finding is "not applicable" — explicitly noting absence is itself useful.
 
@@ -11,6 +11,28 @@ Classify every finding into one of three severity tiers as you go:
 The memo recommendation should follow mechanically from the tier counts: any FATAL → decline pending remediation.
 
 **Carry the tiers into the memo, visibly.** Tag every finding heading in the CIO memo with its tier label (`[FATAL]` / `[NEGOTIABLE]` / `[ASK]`, plus `[STRENGTH]` for points in the deal's favor), give a one-line legend, and print a tally near the top (e.g., "four FATAL, three NEGOTIABLE, six ASK, one STRENGTH"). The reader should be able to see the recommendation falling out of the counts without reading the prose. Note when a NEGOTIABLE item only stays negotiable if a related FATAL is cured first (e.g., an adjustable carry is negotiable only once governance is restored) — flag that dependency rather than scoring it in isolation.
+
+## Analytical lenses (apply all three to every bucket below)
+
+The buckets are *topics*; these are the *viewpoints* you read each topic from. A finding often looks
+benign from one lens and alarming from another — run all three before scoring.
+
+- **Fund counsel.** Legal structure, exemption coherence, fiduciary duties and their waivers,
+  indemnification and exculpation, enforceability of the operative terms, which document controls in
+  a conflict. (Drives §1, §2, §7.)
+- **Prospective investor.** Risk, unclear or discretionary terms, alignment, and anything that hits
+  *return, control, or liquidity* — plus the investor-friendly features worth a `[STRENGTH]` tag.
+  (Drives every bucket.)
+- **Lender to the fund.** Read the fund as if you were extending *it* credit — even for a pure equity
+  vehicle. Ask: what is the funding/redemption-run risk (committed liquidity facility vs. best-efforts
+  redemptions)? Is there an asset–liability / duration mismatch (short investor liquidity against
+  long, illiquid assets)? How enforceable is the collateral, and how clean are the default/foreclosure
+  mechanics? What is current cash utilization, and does anything strain the ability to honor
+  obligations? This lens is the one most often skipped on equity funds and is where redemption-run and
+  duration risk surface. (Drives §4, §5, §6.)
+
+The "Lender to the fund" lens applies to **all** funds; the §5 debt branch is the deepest form of it,
+for offerings whose security is actually a note.
 
 ## 0. Document authenticity gate (run FIRST — a fail here changes the whole review)
 
@@ -85,6 +107,7 @@ This is its own bucket because it is the single most common decline pattern:
 - **Redemption price formula.** If redemption price = invested capital + accrued unpaid pref, the pref is the LP's **maximum** outcome, not a floor — 100% of upside goes to the sponsor or a captive class. This is the most overlooked structural issue and belongs on page one whenever true.
 - **Put/redemption funding.** If LPs hold a future put right (e.g., year-5), is it funded or merely promised?
 - **Transfer rights.** Almost always restricted; note unusual conditions.
+- **Redemption-run and asset–liability mismatch (lender lens).** Read the liquidity terms as a creditor would: if investors can redeem on short notice while the assets are long and illiquid, what happens in a redemption wave? Is there a *committed* liquidity facility behind the redemption right, or only best-efforts cash? An evergreen fund offering quarterly liquidity against multi-year loans or development assets, with no committed backstop, carries duration risk that the gates merely defer — surface it even when the gate language is "market."
 
 ## 5. Debt instruments (run this branch when the security is a note, not an LP interest)
 
@@ -137,6 +160,42 @@ Also check state blue-sky filings where practical.
 - **Marketing tax claims vs. mechanics.** Verify any tax pitch against the actual rules — e.g., a depreciation/loss pitch to passive LPs that omits IRC §469 passive-activity-loss limits, or unverified bonus-depreciation and QOZ claims. A tax benefit the typical investor cannot actually use is a marketing misrepresentation.
 - **State filings.** Note multi-state filing burden and whether composite returns are filed.
 
+## 10. Benchmarking calibration (calibrate the headline terms against market)
+
+The rubric judges; this step **calibrates**. After the terms are pinned down, compare each headline
+term against a current, fund-subtype-and-size-specific industry benchmark and present the result as a
+table in the CIO memo. Full source list and discipline in `references/benchmarking_sources.md`.
+
+Benchmark at least: target/net return, management fee (rate + basis), carried interest + hurdle, GP
+commitment, leverage, liquidity (lock-up/gates), preferred return, valuation frequency, and — for
+credit funds — loan term and default/loss rate. Table format:
+
+| Metric | This Fund | Industry Benchmark | Source | Comparison |
+|---|---|---|---|---|
+| [metric] | [from the documents] | [from the benchmark] | [e.g., PitchBook Q1 2025] | [within range / above / below market — and whether that favors the investor] |
+
+Discipline: pull "This Fund" from the §0.5 reconciliation matrix (controlling document's figure; note
+disagreements); use the fund's *specific* subtype; **never estimate a benchmark** — if a subtype
+benchmark is unavailable, state the benchmark used, why, and how it differs, or say "no usable
+benchmark." Cite each source with its vintage. Below-market terms that favor the investor (no carry,
+low fee, high GP commitment, conservative leverage) also earn a `[STRENGTH]` tag; above-market
+extraction feeds the FATAL/NEGOTIABLE findings. Calibration never overrides the rubric: a *market*
+fee paid to a captive affiliate that owes no fiduciary duty is still a finding.
+
+## 11. Uncertainty map (what's ambiguous, where, and what to ask)
+
+Close the analysis with a scannable, citation-anchored grid of every place the documents are vague,
+silent, conflicting, or interpretation-dependent. It is the internal companion to the outward sponsor
+questionnaire: the questionnaire is the polite letter to IR; the uncertainty map is the IC's at-a-
+glance index of open risk. Goes as an appendix table in the CIO memo:
+
+| Area of Uncertainty | Description | Document & Location | Suggested Follow-Up |
+|---|---|---|---|
+| [topic] | [what is vague / missing / conflicting] | [e.g., LPA §5.4, p. 17] | [the clarification or question for the manager] |
+
+Anchor every row to a specific document and section/page. Anything material here should also be
+mirrored as an `[ASK]` in the memo body and as a numbered question in the sponsor questionnaire.
+
 ## Findings that should always go on page one of the CIO memo
 
 1. The fee structure is undisclosed — or fully disclosed and quantified, with the aggregate load computed and a worked example.
@@ -148,12 +207,14 @@ Also check state blue-sky filings where practical.
 7. The track record belongs to this entity, this team, and this strategy (or it does not).
 8. For notes: the instrument is secured and perfected (or it is unsecured, stated in the first line).
 9. The sponsor's primary business is investment management (or something else).
+10. The headline economics (fee, carry, pref, GP commitment, leverage, liquidity) sit within, above, or below current market — benchmarked against a cited source (§10).
 
-If any of these flips negative, the deal is unlikely to clear a family-office IC without remediation. Two or more: decline.
+If any of these flips negative, the deal is unlikely to clear a family-office IC without remediation. Two or more: decline. (Benchmarking calibrates the others — an above-market term hardens a finding; a below-market, investor-friendly term is a `[STRENGTH]`, not a pass on the rest.)
 
 ---
 
 ## Changelog
 
+- **v2.2 (2026-06-22)** — Adopted four ideas from the Kirkland Capital Group "AI Due Diligence Prompt for Private Fund Investors": (1) an **Analytical-lenses** preface — read every bucket through Fund Counsel / Prospective Investor / **Lender-to-the-fund** viewpoints, the last applied to all funds (not just notes), with redemption-run and asset–liability-mismatch questions folded into §4; (2) **§10 Benchmarking calibration** — calibrate headline terms against current, cited industry benchmarks (ILPA 3.0, PitchBook, Preqin, McKinsey, StepStone; see `benchmarking_sources.md`) in a memo table, with a never-estimate discipline; (3) **§11 Uncertainty map** — a citation-anchored appendix grid of ambiguous/missing/conflicting terms, companion to the questionnaire; (4) a tenth page-one finding (headline economics benchmarked vs. market). Our authenticity gate, reconciliation matrix, and external-diligence posture are retained — benchmarking calibrates, it does not replace the rubric's judgment.
 - **v2.1 (2026-06-12)** — Lessons folded in from the Lansing Land Development Fund I review: (1) carry the FATAL/NEGOTIABLE/ASK/STRENGTH tiers into the memo as visible per-finding labels with a legend and tally, and flag NEGOTIABLE-items whose status depends on curing a related FATAL; (2) §2 — added the per-LP "Carry/Management-Fee Adjustment" secret-side-letter mechanism and the "illusory safeguard" pattern (PPM cites an advisory committee/approval the LPA nullifies); (3) §7 — added the "operating-company-affiliate dodge" (new fund GP borrowing an affiliated operating business's gross deal record) and the reminder to EDGAR-search for a prior same-name fund vehicle that raised $0; (4) §6 — added "projected-return marketing vs. underwriting" (deck IRR/ROI with no documentary basis, especially when paired with "low-risk" framing of a binary asset).
 - **v2** — Added the document-authenticity gate (§0), cross-document reconciliation matrix (§0.5), conflicts/captive bucket (§3), debt-instrument branch (§5), the five-check EDGAR reconciliation (§8), and the page-one findings list.
