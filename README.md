@@ -122,6 +122,10 @@ Every finding is classified **FATAL** / **NEGOTIABLE** / **ASK**. Any FATAL bloc
 | **7. Sponsor / track record** | IAPD registration, exemption coherence, principal-level checks, attribution |
 | **8. EDGAR / Form D** | Filing existence/timing, raise vs. target, amendments, sales compensation |
 | **9. Tax** | Phantom income, K-1 timing, UBTI/ECI, IRC §469 passive-activity-loss limits |
+| **10. Benchmarking** | Headline terms (fee, carry, GP commitment, leverage, liquidity, pref) calibrated against cited market sources (ILPA 3.0, PitchBook, Preqin, McKinsey, StepStone) |
+| **11. Uncertainty map** | Citation-anchored grid of vague / missing / conflicting terms and the follow-up to ask |
+
+Every bucket is read through three lenses — **fund counsel**, **prospective investor**, and **lender-to-the-fund** (a credit lens applied to every fund, not just notes).
 
 ### Output
 
