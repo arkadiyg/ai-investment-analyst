@@ -1,4 +1,4 @@
-# PPM Review Rubric (v2.3)
+# PPM Review Rubric (v2.4)
 
 A repeatable checklist for evaluating a private-fund offering document at family-office quality. Walk every section even if a finding is "not applicable" — explicitly noting absence is itself useful.
 
@@ -185,6 +185,16 @@ A business plan that depends on a single anchor tenant — especially a seller-l
 
 An asset with credible alternative uses (powered land for data centers, residential conversion) is *less* risky than one whose only use is the stated plan. Value the optionality, not just the base case — it is a `[STRENGTH]`, and it has rescued otherwise-failing deals.
 
+## The Risk Radar (three variants — §6.5 / §6.6 / §6.7)
+
+The Risk Radar is a spoke-and-zone stress test: plot a deal's assumptions by **mutability zone** (`[LOCKED]` at closing / `[SPONSOR]`-driven / `[MARKET]`-driven) and flag any spoke sitting at the outer (higher-risk) ring. It has **three variants — run the one that matches the underlying asset:**
+
+- **§6.5 (equity / pro forma)** — offerings with an LP-facing operating projection (RE equity, value-add, development).
+- **§6.6 (credit)** — private debt funds and note programs (the LP is a creditor to the GP; there is no single pro forma).
+- **§6.7 (land)** — land funds with no stabilized cash flow (land banking, entitlement, horizontal/lot development, builder land-banking; the appreciation sleeve of farmland/timber).
+
+Pick by asset: a fund that entitles then builds runs §6.7 for the land phase and §6.5 for the vertical pro forma; a land-collateralized note program runs §6.6 (note structure) borrowing §6.7's asset-side spokes; a concentrated RE-debt fund runs §6.6 plus §6.5's collateral spokes. Common discipline across all three: **2+ outer-ring spokes → escalate one tier**; market-zone spokes carry the **orientation principle** (assuming you outperform the historical / through-cycle norm in perpetuity is the high-risk position); numeric bands are **illustrative defaults to override** with subtype data; **never estimate** — cite source + vintage or say "no usable series." Each variant sits *on top of* its qualitative buckets as the quantitative stress test, the way §6.5 sits on top of §6.
+
 ## 6.5 Pro-forma vs. historical-range stress test (the Risk Radar)
 
 Run this **only when the offering includes a pro forma or projected operating model** (most RE equity / value-add / development; partial for debt funds). Skip it for registered interval funds, pure note programs, and other offerings with no LP-facing operating projection — and note that it was skipped and why. After terms are pinned (§0.5) and before current-market benchmarking (§10), plot every pro-forma assumption against its ~50-year historical range for the deal's submarket and asset class. A deal whose assumptions cluster at the outer edge of that range is structurally fragile regardless of how it compares to *current* comparables — the market reverts to the mean. §10 benchmarks against today; §6.5 benchmarks against history; in a peaked market §10 says "within market" while §6.5 says "at the outer edge of history" — the combination is the signal. Adapted from Christine Kwasny's Risk Radar (*Net Zero is a Win* / PassivePockets, 2026), tested retrospectively against five prior deals.
@@ -228,6 +238,125 @@ Run this **only when the offering includes a pro forma or projected operating mo
 **How to score.** (1) For each spoke, gather the pro-forma value and the historical high/low/avg for this submarket + asset class — pull the historical series with available tools/web data (don't take the deck's numbers); cite source + vintage; never estimate (say "no usable series" if absent). (2) Plot the value; flag any spoke at the outer ring and tag it by zone (`[LOCKED]`/`[SPONSOR]`/`[MARKET]`). (3) **If 2+ spokes sit at the outer ring simultaneously, escalate the recommendation one tier** — a deal can be fragile even when each single assumption looks "achievable." (4) For market-driven spokes, require the GP to justify any outperformance with a concrete, evidenced mechanism — not "we're better operators." (5) Pull any outer-ring assumption into the Uncertainty Map (§11) and the questionnaire.
 
 **Two cross-references.** The waterfall spoke is the *inverse* of the §4 pref-as-ceiling check: §6.5 flags the **absence** of a pref (straight split → no obligation to return LP capital before promote = misalignment); §4 flags pref-*as-ceiling* (capping LP upside). Both directions are real. And §6.5 does not replace §10 (current-market terms) or §6 (qualitative strategy) — it is the historical-range quantitative test that sits between them.
+
+## 6.6 Credit-fund Risk Radar (the credit variant)
+
+**Run instead of §6.5** when the offering is a private debt fund — senior direct lending, mezzanine, RE bridge/transitional, specialty/ABL, a credit interval fund / BDC, fund-of-loans, evergreen income fund, or a fixed-coupon note program (run both only on a true equity+debt hybrid). The equity Radar plots one asset's pro forma; almost none of that maps to a credit fund — *the fund is the deal*, and the LP is a creditor to the **GP**, not to any borrower. A credit LP loses through a different mechanism, and the spokes target it:
+
+> Permanent loss when **borrowers default**, AND the **manager can't work them out**, AND the **collateral cushion is gone** (effective LTV through 100%), AND/OR the fund is a **forced seller** (a leverage margin call or a redemption run against illiquid loans). Income stops when the **coupon was never a real spread** (funded from proceeds / interest reserve / ROC).
+
+**Inclusion criterion:** a spoke earns a place only if it can **independently impair LP capital or durably trap/halt income** — not merely lower net yield (return-reducers live in §1/§10). **Orientation:** *reaching for yield is the high-risk position; assuming benign credit conditions persist is the market-side high-risk position* — benchmark the **gross asset yield** against the subtype norm; above-norm = outer ring.
+
+**Subtype calibration (read before any threshold — illustrative; calibrate via `benchmarking_sources.md`):**
+
+| Outer-ring band | Senior corporate DL | RE bridge / transitional | Mezz / subordinate | Distressed / special-sits |
+|---|---|---|---|---|
+| Portfolio LTV | > 65% | > 75% (watch **ARV** basis) | > 85% attach | run on **basis & recovery** |
+| Borrower coverage (DSCR / debt yield) | < 1.3× | < 1.2× | < 1.1× | pre-cash-flow |
+| Fund leverage | > 2× (BDC) | > 1.5× | > 1× | > 1× |
+| Single-name concentration | > 5% | > 8% | > 8% | > 10% (deliberate) |
+
+**Mezz rule:** for a mezzanine/pref fund, outer-ring seniority is *expected* — a knowingly-accepted, priced risk, not a kill shot. The kill shot is **undisclosed** subordination (a "senior secured" note silently behind a bank line), never disclosed mezzanine.
+
+**The 19 spokes, by mutability zone.** Outer = higher risk. ⚠ = single-spoke kill shot. † = garbage-in gate.
+
+*Zone 1 — Locked at commitment (weight heaviest; walk or accept):*
+
+| # | Spoke | Outer (higher risk) | Inner |
+|---|---|---|---|
+| 1 | Manager cycle-tested lending record | < 1 full credit cycle; never a realized loss | 2+ cycles, *disclosed realized* losses **and** recoveries |
+| 2 | Workout / special-servicing capacity | none / fully outsourced; no REO/foreclosure experience | dedicated in-house, cycle-tested recoveries |
+| 3 | Seniority in the fund's stack ⚠ | a "senior" instrument **silently behind** a warehouse/repo line = effectively mezz | top of the stack, no facility ahead of LPs (*disclosed* mezz ≠ this) |
+| 4 | Coupon-funding structure ⚠ | coupon *can* be paid from raise proceeds / interest reserve / new investors | structurally fundable only from a covered book spread |
+| 5 | Verification & transparency † | manager-marked NAV, no independent valuer, no audit, **no loan tape** | independent valuation + annual audit + full per-loan tape |
+| 6 | OA lending-latitude ceiling | OA *permits* high LTV/ARV, unsecured, any asset, related-party loans regardless of the deck | OA *binds* the GP to the marketed strategy. **Plot the ceiling, not the practice.** |
+
+*Zone 2 — Manager-driven (within the OA ceiling; monitor / negotiate):*
+
+| # | Spoke | Outer | Inner |
+|---|---|---|---|
+| 7 | Collateral coverage (LTV + basis + lien + recourse) | > subtype band, on ARV, 2nd-lien/unsecured sleeve, non-recourse | < band on current value, ~all first-lien, recourse |
+| 8 | Borrower debt-service coverage (DSCR / debt yield) | < subtype band; **breaches at +200bps** floating | comfortable cushion under +200bps |
+| 9 | Borrower / sector / geography concentration | top name / sector / MSA > band | granular, diversified |
+| 10 | Fund-level leverage (leverage-on-leverage) | > band, **MTM/margin triggers**, facility renewal/pull risk | unlevered/modest; committed/termed, no MTM triggers |
+| 11 | Underwriting & covenant quality | standards loosening to deploy — cov-lite, add-backs over vintages | consistent discipline; maintenance covenants |
+| 12 | Self-dealing / captive lending | GP lends to its own projects/affiliates, material %, not arm's-length | none, or disclosed/arm's-length/LPAC-approved/capped |
+| 13 | Distribution quality (cash NII vs ROC vs PIK) | distributions **> cash NII** (ROC), fat **PIK %**, cumulative-pref arrears compounding | 100% cash NII with a spillover cushion |
+| 14 | Liquidity & duration | evergreen redemptions, **maturities after the redemption window**, no gate-duration cap | closed-end matched, or committed backstop + hard gate cap |
+
+*Zone 3 — Market-driven (mean-reverts; hedge / size down / accept) — orientation: assuming today's benign credit conditions persist is the outer ring:*
+
+| # | Spoke | Outer (higher risk) |
+|---|---|---|
+| 15 | Default-frequency cycle | underwriting below the strategy's through-cycle average ("zero losses" = hasn't met a downturn) |
+| 16 | Recovery/severity & collateral-value cycle | above-historical recovery assumed; collateral at peak / low caps → reversion raises *effective* LTV (the §6.5 bridge) |
+| 17 | Credit-spread / gross-yield vs. cycle | tight spread / cycle-low yield = risk underpriced; a high advertised yield in a tight market = reaching down the spectrum |
+| 18 | Lending-cycle / capital-abundance vintage | peak-abundance vintage — terms liberalizing, GP pressured to deploy |
+| 19 | Base-rate & refinancing / takeout window | floating borrowers + a near-term **maturity wall** + a tight refi market ("extend and pretend") |
+
+*(6 locked / 8 manager / 5 market — in credit, far more risk sits in manager skill and fund structure than market beta, the inverse of the equity radar.)*
+
+**How to score.** (1) Pull values vs. the subtype benchmark (loan tape, fee/facility docs, §0.5); cite source + vintage. (2) Plot & zone-tag each outer-ring spoke. (3) **Two single-spoke kill shots — page-one and FATAL on their own:** **#4** coupon payable from proceeds = the note-program Ponzi marker (FATAL pending proof of a covered spread); **#3 undisclosed** subordination. (4) **Garbage-in gate (#5):** manager-marked NAV with no loan tape → mark every asset-side input unverified, lower confidence (the way §0's authenticity gate reframes a review). (5) **Stacked credit stress (centerpiece):** defaults hit the through-cycle peak AND collateral falls X% AND a redemption wave or facility margin call hits *simultaneously* — compute the LP's principal loss and whether distributions survive; a book that passes each shock alone but fails the stack is the forced-seller blow-up. (6) Otherwise 2+ outer-ring → escalate one tier; carry knowingly-accepted outer-ring risks (e.g., disclosed mezz) into the "Knowingly Accepted Risks" memo section. *(Validated retrospectively against five credit funds — DLP, CL Fund 3, Origin, CCLFX, CELFX — the spoke that lights up matched each memo's kill-shot cell.)*
+
+## 6.7 Land-fund Risk Radar (the land variant)
+
+**Run instead of §6.5/§6.6** when the underlying asset is **land with no stabilized cash flow** — land banking, entitlement plays, horizontal/lot development, builder land-banking / lot-option programs, and the appreciation sleeve of farmland/timber. Land produces **no income** — the entire return is **terminal appreciation minus carry**, and the asset bleeds cash every year it is held. The LP loses through a mechanism neither the equity nor the credit radar models:
+
+> Permanent loss when the **entitlement fails or drags** past the underwritten timeline, AND **carry exhausts the reserves** (forcing a capital call into a weak market), AND the **land loan matures with no buyer and no committed takeout**, AND the **cycle turns** — so the fund is a **forced seller of the highest-beta asset at its trough.** Or the thesis was never real: **basis above residual land value going in**, or **"distributions" paid on a no-income asset from capital / new subscriptions.**
+
+**Inclusion criterion:** a spoke earns a place only if it can independently impair capital or strand the fund (force a loss sale, blow the basis, trap capital) — not merely lower IRR (return-reducers live in §1/§10), except where fees on a no-income asset are a structural drain (#12). **Orientation:** *assuming land appreciates smoothly — or merely holds — across a multi-year, timeline-slipping hold is the high-risk position*; land has the highest cyclical beta of any real asset (fell 50–80% in 2007–11; recovers last).
+
+**Subtype calibration (illustrative defaults — land thresholds are softer/thinner than income-RE; timelines slip 1.5–2×; never estimate a comp):**
+
+| Outer-ring band | Pre-dev land bank | Entitlement play | Horizontal / lot dev | Builder land-bank / option |
+|---|---|---|---|---|
+| Value lift from | path-of-growth + time | the **entitlement vote** | infrastructure + finished-lot premium | option fee + takedown markup |
+| Land residual ratio (basis ÷ supportable residual) | > 0.85 | > 0.85 | > 0.80 | markup-driven |
+| Leverage (LTV) | > 35% raw | > 25% (binary) | > 50% incl. horizontal | > 50% |
+| Loan maturity vs. hold | any maturity **inside** the hold | inside entitlement window | inside dev window | inside takedown schedule |
+| Counterparty protection | exit-buyer breadth | n/a | finished-lot demand | **option deposit ≥ ~10% non-refundable** (thin vs. a 30–50% drop) |
+
+**Builder land-bank rule:** the non-refundable option deposit (often ~10%) is the LP's only protection and is thin against a 30–50% land decline; in a downturn the builder forfeits and walks. Plot deposit adequacy + builder credit, not the marketed takedown IRR. **Farmland/timber:** score the lease/harvest income under §6.5/§6.6 and the land-appreciation sleeve here — don't let a real ag coupon launder a speculative appreciation bet.
+
+**The 19 spokes, by mutability zone.** Outer = higher risk. ⚠ = single-spoke kill shot. † = garbage-in gate. Weighting **7 locked / 6 sponsor / 6 market** — land is won or lost at acquisition, with an unusually heavy exogenous cycle overlay.
+
+*Zone 1 — Locked at closing (you make your money going in; walk or accept):*
+
+| # | Spoke | Outer (higher risk) | Inner |
+|---|---|---|---|
+| 1 | Going-in basis vs. residual land value ⚠ | basis **above** residual (finished value − vertical cost − builder margin − carry); a growth-story premium for dirt — unrecoverable | basis at a **discount** to residual, leaving margin for delay |
+| 2 | "Distributions" / pref on a no-income asset ⚠ | a current pref / monthly distribution on land with no real interim income → ROC or new-subscription money; often paired with redemption-at-capital / auto-cancellation → **bond-like capped upside, full equity downside, no security** | nothing until sale, **or** distributions traced to *verified* interim income (ag / billboard / cell / solar lease) |
+| 3 | Land-loan / fund-term vs. realistic entitlement-to-exit | matures **before** a realistic entitlement-plus-sale timeline, recourse, no committed takeout — gap bridged by uncommitted future calls | unlevered, or termed past the exit with committed extension + defined takeout |
+| 4 | Negative-carry runway / reserves funded at closing | reserves cover **less than** the hold; carry funded by hoped-for raises/sales | reserves cover the full hold **+ a 1.5–2× buffer** |
+| 5 | Entitlement status at entry | bought **unentitled**, underwritten to **entitled** value — return rides a future vote | bought entitled / finished lots |
+| 6 | What you actually bought (title / access / physical) | no recorded access, wetlands / floodplain / species / environmental, no water rights, severed minerals, unbuildable topography | clean title, recorded access, no encumbrances, water rights intact |
+| 7 | Single-parcel / single-jurisdiction concentration | 1–3 parcels, one corridor, one planning authority — one vote = the whole fund | diversified across parcels, jurisdictions, corridors |
+
+*Zone 2 — Sponsor-driven (skill & execution; monitor / negotiate):*
+
+| # | Spoke | Outer | Inner |
+|---|---|---|---|
+| 8 | Entitlement-execution record in THIS jurisdiction | first time through this planning commission; "cockroaches" — prior denials, lawsuits, abandoned entitlements | repeatedly entitled here; named approvals delivered |
+| 9 | Valuation / appraisal integrity † | NAV on **as-if-entitled / as-if-developed** appraisals that assume the thesis; manager-selected appraiser; thin comps | independent **as-is** appraisal, real comps; thesis upside disclosed not booked |
+| 10 | Negative-carry management & interim-income capture | no plan to offset carry; the hold just bleeds | monetizes the hold (ag / grazing / billboard / cell / solar lease); appeals assessments |
+| 11 | Exit-strategy specificity & buyer universe | "sell to a developer" / "the city will want it" — no named buyer, thin universe | a contracted builder takedown or a defined credit-worthy buyer list |
+| 12 | Fee load vs. a no-cash-flow asset | acq + AM-on-committed + disposition fees compounding to a large share of capital (≈14% on a 7-yr, 2%/yr hold before any appreciation) | modest, milestone- / sale-weighted; AM on invested not committed |
+| 13 | Self-dealing / related-party land sourcing | sponsor/affiliate **sold the land into the fund** at a markup — easiest asset to flip in (thin comps) | third-party, or disclosed / independently-appraised / LPAC-approved |
+
+*Zone 3 — Market-driven (land has the HIGHEST beta; hedge / size down / accept) — orientation: assuming smooth appreciation across a slipping hold is the outer ring:*
+
+| # | Spoke | Outer (higher risk) |
+|---|---|---|
+| 14 | Land-price cycle position & highest-beta drawdown | buying mid/late-cycle, underwriting smooth appreciation; no stress for the 50–80% peak-to-trough leg |
+| 15 | Entitlement / political & regulatory regime | moratoria, downzoning, impact-fee hikes, water/sewer limits, environmental litigation, NIMBY ballot measures |
+| 16 | Homebuilder demand / absorption cycle | the buyer (homebuilder) is long land or pulling back → takedown stretches for years, killing IRR at the target price |
+| 17 | Interest-rate & terminal-discount regime | rates up hit land three ways — carry up, the discount on a long-dated no-income terminal value up, builder demand down |
+| 18 | Path-of-growth / migration & infrastructure cycle | the metro's growth path (jobs, migration, planned highway/utility) has shifted away from the parcel |
+| 19 | Construction-cost cycle (the residual bridge) | land is the residual; rising vertical/horizontal costs compress land value even when home prices hold |
+
+*(7 locked / 6 sponsor / 6 market.)*
+
+**How to score.** (1) Pull values vs. the subtype benchmark (residual-land math, the carry/reserve schedule, the loan-maturity-vs-timeline gap, the appraisal basis, §0.5); cite source + vintage. (2) Plot & zone-tag. (3) **Two single-spoke kill shots — page-one and FATAL on their own:** **#2** a pref/distribution on a no-income asset = funded from capital / new money (the land-fund Ponzi marker; the **primary** land kill shot — it fired on all five in-vault land funds); **#1** basis above residual land value (magnitude-FATAL unless a contracted, near-certain entitlement lift covers the gap). (4) **Garbage-in gate (#9):** as-if appraisals with no independent as-is support → mark every appreciation-based input unverified. (5) **Stacked carry-and-cycle stress (centerpiece):** entitlement slips 18–24 months AND carry reserves exhaust AND the land loan matures AND builder/buyer demand evaporates AND rates rise — *all at once* (the 2007–11 land story); compute the LP's loss and whether the fund can hold rather than sell at the trough. (6) Otherwise 2+ outer-ring → escalate one tier; carry knowingly-accepted outer-ring risks into the "Knowingly Accepted Risks" memo section. *(Validated retrospectively against five in-vault land funds — Allied American, Lansing, Texas Triangle, Blu Onx, BigStar — all DECLINE, the spoke that lights up matching each memo's kill-shot cell.)*
 
 ## 7. Sponsor, principals, and track record
 
@@ -356,7 +485,7 @@ post-close.
 8. For notes: the instrument is secured and perfected (or it is unsecured, stated in the first line).
 9. The sponsor's primary business is investment management (or something else).
 10. The headline economics (fee, carry, pref, GP commitment, leverage, liquidity) sit within, above, or below current market — benchmarked against a cited source (§10).
-11. The pro-forma assumptions sit within their historical range, not clustered at the outer edge (or they do not) — Risk Radar §6.5; 2+ outer-ring spokes signal structural fragility regardless of current-market benchmarking. *(Only when the offering carries a pro forma.)*
+11. The deal's assumptions sit within their historical / through-cycle range, not clustered at the outer ring — run the Risk Radar variant that matches the asset (**§6.5** equity/pro-forma, **§6.6** credit, **§6.7** land); 2+ outer-ring spokes signal structural fragility regardless of current-market benchmarking, and a single kill-shot spoke (coupon-funded-from-proceeds or undisclosed subordination; a pref/distribution on a no-income land asset) is itself page-one and FATAL.
 12. The break-even interest rate is at least 100–200bps below the rate cap (or the deal is structurally designed to fail at the cap).
 13. The OA does not let the GP change the capital stack without LP consent (or it does — pref/senior-class issuance, added debt, rescue-capital subordination).
 14. A post-close monitoring protocol exists or the LP is adopting one (cadence, content baseline, red-flag triggers, action plan).
@@ -367,6 +496,7 @@ If any of these flips negative, the deal is unlikely to clear a family-office IC
 
 ## Changelog
 
+- **v2.4 (2026-06-24)** — Extended the Risk Radar into a **three-variant family**. Added a shared §6.5–6.7 preamble (pick the variant by underlying asset; common zones / orientation / never-estimate discipline) and two new variants. **§6.6 Credit-fund Risk Radar** — 19 spokes (6 locked / 8 manager / 5 market) targeting the credit loss mechanism (default × workout × collateral × forced-seller, plus coupon-funding integrity); two single-spoke kill shots (coupon-funded-from-proceeds; undisclosed subordination), a verification/garbage-in gate, distribution-quality (NII/ROC/PIK), and a stacked-credit-stress centerpiece; validated retrospectively against five credit funds (DLP, CL Fund 3, Origin, CCLFX, CELFX). **§6.7 Land-fund Risk Radar** — 19 spokes (7 locked / 6 sponsor / 6 market) for land with no stabilized cash flow (basis / carry / entitlement / terminal-liquidity, not occupancy/rent/cap-rate); two kill shots (a pref/distribution on a no-income asset — the primary; basis-above-residual-land-value), an as-if-appraisal garbage-in gate, the builder-takedown/deposit rule, and a stacked carry-and-cycle stress; validated retrospectively against five in-vault land funds (Allied American, Lansing, Texas Triangle, Blu Onx, BigStar — all DECLINE, the spoke that lights up matching each memo's kill-shot cell). Page-one finding 11 generalized to "run the variant that matches the asset," with the credit/land single-spoke kill shots elevated to page-one/FATAL.
 - **v2.3 (2026-06-23)** — Integrated *Net Zero is a Win* / The Debrief (Christine Kwasny — the Risk Radar, ten deal autopsies, and the Heuristics pro-forma series) plus the PassivePockets Risk Radar interview. (1) **§6.5 Pro-forma vs. historical-range stress test** — the 17-spoke Risk Radar across three mutability zones, the orientation principle (for market-driven spokes, assuming perpetual outperformance of the historical average is the high-risk position), and the "must be able to kill a deal" inclusion criterion; numeric bands are illustrative RE-equity defaults to override with submarket data, and the section runs only when the offering carries a pro forma. (2) **§12 Post-close monitoring protocol** — reporting/audit rights to demand pre-close and the report-content red flags (esp. the distribution-vs-NOI mismatch test) that surfaced the corpus's frauds. (3) Extensions: **§0.5** marketing-claim reconciliation; **§1** math-integrity + return-presentation integrity (defined exit + IRR, ROI-vs-IRR reconciliation, refi-as-ROC, luck-vs-skill); **§2** capital-stack constraints + custody/controls; **§3** fund-investment parallel track; **§4/§5** break-even-vs-rate-cap gap + hedge spec + capital-call bridge/black-hole + debt-fund-as-LP; **§6** stacked stress, two-cycle position, development risk, covenant-call risk, anchor-tenant, asset optionality; **§7** co-invest-vs-promote ratio, extended-team tenure, solo-vs-team risk, cross-portfolio distress, the "Roaches" one-mark rule. (4) A **Mutability** analytical lens and a per-finding `[LOCKED]`/`[SPONSOR]`/`[MARKET]` zone tag (no separate deal-killer/return-reducer tag — that distinction lives in the §6.5 inclusion criterion and the finding text). (5) An **"Accredited ≠ astute"** preface guardrail; a **"Knowingly Accepted Risks"** CIO-memo section and a confidentiality/NDA operational note both added in SKILL.md. (6) Four new page-one findings (11–14). §6.5 stress-tests assumptions, §10 benchmarks terms — both complement the rubric's judgment, neither replaces it.
 - **v2.2 (2026-06-22)** — Adopted four ideas from the Kirkland Capital Group "AI Due Diligence Prompt for Private Fund Investors": (1) an **Analytical-lenses** preface — read every bucket through Fund Counsel / Prospective Investor / **Lender-to-the-fund** viewpoints, the last applied to all funds (not just notes), with redemption-run and asset–liability-mismatch questions folded into §4; (2) **§10 Benchmarking calibration** — calibrate headline terms against current, cited industry benchmarks (ILPA 3.0, PitchBook, Preqin, McKinsey, StepStone; see `benchmarking_sources.md`) in a memo table, with a never-estimate discipline; (3) **§11 Uncertainty map** — a citation-anchored appendix grid of ambiguous/missing/conflicting terms, companion to the questionnaire; (4) a tenth page-one finding (headline economics benchmarked vs. market). Our authenticity gate, reconciliation matrix, and external-diligence posture are retained — benchmarking calibrates, it does not replace the rubric's judgment.
 - **v2.1 (2026-06-12)** — Lessons folded in from the Lansing Land Development Fund I review: (1) carry the FATAL/NEGOTIABLE/ASK/STRENGTH tiers into the memo as visible per-finding labels with a legend and tally, and flag NEGOTIABLE-items whose status depends on curing a related FATAL; (2) §2 — added the per-LP "Carry/Management-Fee Adjustment" secret-side-letter mechanism and the "illusory safeguard" pattern (PPM cites an advisory committee/approval the LPA nullifies); (3) §7 — added the "operating-company-affiliate dodge" (new fund GP borrowing an affiliated operating business's gross deal record) and the reminder to EDGAR-search for a prior same-name fund vehicle that raised $0; (4) §6 — added "projected-return marketing vs. underwriting" (deck IRR/ROI with no documentary basis, especially when paired with "low-risk" framing of a binary asset).
