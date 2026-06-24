@@ -94,7 +94,7 @@ The same skill works as an Anthropic Agent Skill on Claude.ai (Pro / Team / Ente
 ### Install
 
 1. Download the skill bundle from the latest release:
-   [`ag-capital-analyst.skill`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.4.0/ag-capital-analyst.skill)
+   [`ag-capital-analyst.skill`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.5.0/ag-capital-analyst.skill)
 2. In Claude.ai, open **Settings → Capabilities → Skills** (the exact path may vary by plan; see the [official Skills setup guide](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills) for the current UI flow).
 3. Click **Upload skill** (or **Create skill** → **Upload file**) and select the downloaded `ag-capital-analyst.skill`.
 4. Enable the skill for the workspace or project where you want to use it.
@@ -119,7 +119,9 @@ Every finding is classified **FATAL** / **NEGOTIABLE** / **ASK**. Any FATAL bloc
 | **4. Liquidity** | Lock-up, redemption gates, NAV mechanics, pref-as-ceiling vs. floor |
 | **5. Debt instruments** | Security, subordination, collateral perfection, trustee, coupon coverage |
 | **6. Strategy / asset risk** | Cash-flow profile, leverage, guaranties, macro fit, concentration, stacked stress, cycle position, covenant-call risk |
-| **6.5 Risk Radar** | Pro-forma assumptions (rent growth, vacancy, expenses, exit cap, supply/absorption, debt) plotted against their ~50-year historical range — assumptions at a historic extreme flagged as mean-reversion risk (runs only when the offering carries a pro forma) |
+| **6.5 Risk Radar — equity** | Pro-forma assumptions (rent growth, vacancy, expenses, exit cap, supply/absorption, debt) plotted against their ~50-year historical range — assumptions at a historic extreme flagged as mean-reversion risk (runs when the offering carries a pro forma) |
+| **6.6 Risk Radar — credit** | 19 spokes for debt funds / note programs: the credit-loss mechanism (default × workout × collateral × forced-seller) plus coupon-funding integrity; single-spoke kill shots for coupon-funded-from-proceeds and undisclosed subordination |
+| **6.7 Risk Radar — land** | 19 spokes for land with no stabilized cash flow: basis / carry / entitlement / terminal-liquidity (not occupancy/rent/cap-rate), the builder-takedown/deposit rule; kill shot for a pref/distribution on a no-income asset |
 | **7. Sponsor / track record** | IAPD registration, exemption coherence, principal-level checks, attribution, co-invest-vs-promote ratio, the "Roaches" one-mark rule |
 | **8. EDGAR / Form D** | Filing existence/timing, raise vs. target, amendments, sales compensation |
 | **9. Tax** | Phantom income, K-1 timing, UBTI/ECI, IRC §469 passive-activity-loss limits |
@@ -147,7 +149,7 @@ If the deal folder contains a YouTube link (sponsor webinar or LP "deal review")
 
 Download the `.skill` bundle from the latest release and upload it in **Settings → Capabilities → Skills**:
 
-[`ppm-risk-review.skill`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.4.0/ppm-risk-review.skill)
+[`ppm-risk-review.skill`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.5.0/ppm-risk-review.skill)
 
 ## Disclaimer
 
