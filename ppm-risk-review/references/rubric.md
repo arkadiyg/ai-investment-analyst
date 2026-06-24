@@ -1,4 +1,4 @@
-# PPM Review Rubric (v2.2)
+# PPM Review Rubric (v2.3)
 
 A repeatable checklist for evaluating a private-fund offering document at family-office quality. Walk every section even if a finding is "not applicable" — explicitly noting absence is itself useful.
 
@@ -11,6 +11,8 @@ Classify every finding into one of three severity tiers as you go:
 The memo recommendation should follow mechanically from the tier counts: any FATAL → decline pending remediation.
 
 **Carry the tiers into the memo, visibly.** Tag every finding heading in the CIO memo with its tier label (`[FATAL]` / `[NEGOTIABLE]` / `[ASK]`, plus `[STRENGTH]` for points in the deal's favor), give a one-line legend, and print a tally near the top (e.g., "four FATAL, three NEGOTIABLE, six ASK, one STRENGTH"). The reader should be able to see the recommendation falling out of the counts without reading the prose. Note when a NEGOTIABLE item only stays negotiable if a related FATAL is cured first (e.g., an adjustable carry is negotiable only once governance is restored) — flag that dependency rather than scoring it in isolation.
+
+**Also tag every finding with its mutability zone** — `[LOCKED]` / `[SPONSOR]` / `[MARKET]` (see the Mutability lens below) — alongside the tier. The recommendation should weigh the zone mix: three irreversible `[LOCKED]` FATALs argue "walk away," while three `[SPONSOR]` FATALs argue "negotiate remediation." Do not add a separate deal-killer/return-reducer tag; when a finding is a structural fragility that can wipe out capital (vs. merely lowering returns), say so in the finding text and let it drive the tier.
 
 ## Analytical lenses (apply all three to every bucket below)
 
@@ -30,9 +32,19 @@ benign from one lens and alarming from another — run all three before scoring.
   mechanics? What is current cash utilization, and does anything strain the ability to honor
   obligations? This lens is the one most often skipped on equity funds and is where redemption-run and
   duration risk surface. (Drives §4, §5, §6.)
+- **Mutability.** Sort each risk by whether it is *locked at closing* (irreversible — sponsor quality,
+  purchase price/cap), *sponsor-driven* (the GP can change it post-close — debt, expenses, capital
+  stack), or *market-driven* (mean-reverts — exit cap, rents, supply). Weight irreversible risks most
+  heavily, and treat any market-driven assumption held at a historic extreme as a reversion risk. This
+  lens drives §6.5 and supplies the `[LOCKED]`/`[SPONSOR]`/`[MARKET]` zone tag carried on every finding.
 
 The "Lender to the fund" lens applies to **all** funds; the §5 debt branch is the deepest form of it,
 for offerings whose security is actually a note.
+
+**Accredited ≠ astute.** Accreditation is a *permission, not a competence credential* — the definition
+now covers roughly a fifth of US households. The investor's accredited status permits the investment;
+it does not certify the investment is sound. Do not outsource judgment to the accreditation check;
+supplying the competence accreditation does not is exactly this rubric's job.
 
 ## 0. Document authenticity gate (run FIRST — a fail here changes the whole review)
 
@@ -64,6 +76,8 @@ Build a literal table — one row per term, one column per document (PPM, LPA, s
 
 Any contradiction across documents is at minimum NEGOTIABLE and usually FATAL — a sponsor that cannot keep its own rate consistent across the PPM, the note, and the deck either has no counsel review or is telling different stories to different audiences. Also confirm the deck describes **this** offering and not a sibling fund.
 
+Extend the matrix with a **Marketing-Claim** column and reconcile *adjectives*, not just terms: "never issued a capital call" (may mean the GP subordinated LPs via pref rather than face a call); "conservative" / "first-position only" against the OA's actual latitude (e.g., "up to 90% LTV, no collateral" permitted while the deck says "conservative bridge lending"); and puffery — "low-risk," "stable," "asset-backed," "capital preservation," "risk mitigation" — flag every instance and require the deck to quantify it. For every bull data-claim, ask what the *bear* reading of the same data is (record deliveries cited as "strong demand" while a supply glut looms).
+
 ## 1. Documentation deficiencies (often the most material findings)
 
 - **Fee table.** Look for a clear table with: management fee (rate + basis), acquisition fee, disposition fee, financing/refinancing fee, carried interest %, hurdle/catch-up structure, and the cap on operating-expense reimbursements. **A PPM that mentions "Carried Interest" / "Asset Management Fee" / "Sharing Ratio" without specifying the rate is a major red flag** — the LP cannot model net returns.
@@ -74,6 +88,8 @@ Any contradiction across documents is at minimum NEGOTIABLE and usually FATAL �
 - **Audited financials and track record.** Note whether prior-fund returns are audited or "internally prepared by affiliates," and whether *any* third-party verification was performed. An unaudited loan tape is not a track record.
 - **Sources and Uses.** Reconcile the math. Be alert to unusually large marketing lines, unspecified "operating costs" exceeding 10% of the raise, or footnoted "redeployed capital" that does not appear in Sources.
 - **Counsel.** Almost always represents the Manager; investors typically waive conflicts. Standard but not benign.
+- **Math-integrity check.** Stated returns (CoC, ROI, IRR, equity multiple) must tie to the cash-flow schedule, which must tie to the rent roll and operating-expense assumptions. **CoC/ROI shown with no IRR or equity multiple is a flag** — a deck once showed only CoC and ROI because the IRR (2.5%) was incompatible with the narrative. Reconcile the stated return % to the dollar math ("110% over 5 years = 2.5% IRR, stated as 101% ROI" does not tie). Catch accounting errors in the PPM itself: vacancy listed as a *positive* number; line items gross rather than net of standard adjustments; expense ratios 30%+ below industry norms with no justification. Check the **renovation budget vs. rent lift** (is the per-unit reno cost consistent with the achievable rent delta in the submarket?) and the **vacancy schedule vs. business plan** (if renovations span Y1–Y3, vacancy must be modeled in each reno year, not just Y1).
+- **Return-presentation integrity.** Require a *defined exit and a time-weighted IRR*. Treat distributions sourced from a **cash-out refinance as return of capital**, not yield. In any track record, separate **luck (an early exit into a favorable market, cap compression) from skill** — a doubled IRR off an early exit is not evidence of execution.
 
 ## 2. Governance and LP protections
 
@@ -87,6 +103,14 @@ Any contradiction across documents is at minimum NEGOTIABLE and usually FATAL �
 - **Preferred-equity subordination.** Whether later capital can subordinate Class A in the waterfall.
 - **Manager-only options.** Call options, forced-redemption rights, or conversion rights (e.g., REIT conversion) exercisable unilaterally by the Manager — these cap the LP's outcome at the Manager's discretion.
 
+### Capital-stack constraints (the stack is not fixed at close)
+
+The single most common path to common-equity wipeout. Check whether the OA lets the GP — **without LP consent** — issue pref equity in lieu of a capital call; issue a senior share class to fund a call (diluting non-participants); add junior/mezz debt; or subordinate common under rescue capital. Capture the **non-participation dilution ratio**, any hard cap on senior/pref issuance, and whether the GP has actually done this in prior deals (check sibling Form Ds and trade press). A deal can exit "successfully" and still wipe common equity if the stack was re-ordered ahead of it.
+
+### Custody and controls
+
+Third-party escrow vs. wires to a GP-controlled deal account (third-party escrow is *not* the norm in private syndications — flag the structural default and ask what segregation exists instead); dual-authorization on withdrawals above a threshold; external audit of the deal account; segregation of duties among principals (one principal with sole signing authority let a fraud run unchecked); and a key-person trigger on principal departure. For **solo-GP deals, single signing authority is a FATAL-level concern** (ties to §7's solo-vs-team risk).
+
 ## 3. Conflicts and captive structures (follow the money)
 
 This is its own bucket because it is the single most common decline pattern:
@@ -96,6 +120,10 @@ This is its own bucket because it is the single most common decline pattern:
 - **Cross-fund allocation.** A sponsor running multiple concurrent vehicles feeding one pooling entity, or Fund I/II/III raising simultaneously, has real (not hypothetical) allocation conflicts. Note whether the LPA addresses allocation methodology at all.
 - **Affiliated service providers.** Transfer agents, administrators, placement platforms, construction managers, property managers, loan servicers owned by the sponsor — list each and its compensation.
 - **Affiliate transactions.** Pre-approved, disclosed, subject to LPAC review, or unilaterally permitted?
+
+### Fund-investment parallel track (when the offering is a fund, not a direct deal)
+
+When the LP invests in a fund rather than a direct syndication, *the fund is the deal* and the GP's selection / servicing / workout capacity is the diligence target — "investing in the bank is not the same as being the bank." Check: fund-level leverage (leverage on leverage); self-dealing latitude (can the GP lend to / invest in its own projects "per the documents"?); loan-tape / holdings transparency and cadence (or are the holdings undisclosed?); the **permitted** (not "typical") max LTV / min DSCR / collateral floor and the exception clauses that allow deviation; for debt funds, the **portfolio's average and max LTV and its basis** (current value vs. ARV vs. capitalization) and the **first-position %**; loan-loss reserves vs. the strategy's benchmarked default/loss rate; geography concentration limits; cumulative-pref arrears incentives (catch-up pressure → riskier loans); gating triggers and any cap on gating duration (an evergreen "marriage with no divorce"); key-person provisions; and lending-cycle position (a fund raised at peak capital abundance is riskier than the same fund raised at scarcity).
 
 ## 4. Liquidity and capital mechanics
 
@@ -108,6 +136,8 @@ This is its own bucket because it is the single most common decline pattern:
 - **Put/redemption funding.** If LPs hold a future put right (e.g., year-5), is it funded or merely promised?
 - **Transfer rights.** Almost always restricted; note unusual conditions.
 - **Redemption-run and asset–liability mismatch (lender lens).** Read the liquidity terms as a creditor would: if investors can redeem on short notice while the assets are long and illiquid, what happens in a redemption wave? Is there a *committed* liquidity facility behind the redemption right, or only best-efforts cash? An evergreen fund offering quarterly liquidity against multi-year loans or development assets, with no committed backstop, carries duration risk that the gates merely defer — surface it even when the gate language is "market."
+- **Capital-call risk — bridge or black hole?** Is a capital call contemplated in the OA, and what are the dilution/penalty mechanics for a non-participating LP? Thin reserves against a thin DSCR/expense cushion are the usual trigger. A capital call does not by itself mean the GP is irresponsible — evaluate each on amount, use of funds, viability after the infusion, dilution ratio, alternatives considered (rescue capital, pref, mezz), and the GP's own co-funding. Trace how project-life cash flow converts to LP return vs. loss, not just the headline multiple.
+- **Break-even rate vs. rate-cap gap.** For floating-rate deals with a cap: at what rate does DSCR hit 1.0×? The break-even rate must be ≥ 100–200bps *below* the cap, under simultaneous NOI stress — if break-even ≈ cap, the deal is structurally designed to fail the moment the cap is hit (one total loss had break-even 4%, cap 6%; NOI rose 35%, debt rose 60%, equity went to zero).
 
 ## 5. Debt instruments (run this branch when the security is a note, not an LP interest)
 
@@ -119,6 +149,8 @@ This is its own bucket because it is the single most common decline pattern:
 - **Coupon coverage.** What cash flow services the coupon today, and is any of it offering proceeds (see §1)?
 - **Rate consistency.** The note's stated rate must match the PPM and deck (see §0.5).
 - **Upside split.** On a fixed-coupon note, the sponsor keeps 100% of upside. Make that explicit for the IC.
+- **Hedge specification.** If the deal carries a rate cap, swap, or collar, the PPM must specify instrument type, strike/cap level, notional, tenor, counterparty, and mark-to-market — "hedging is in place" is insufficient. A rate cap is not a rate lock: even capped, the effective rate can run well above underwriting, so stress the deal at **cap-level rates, not current rates** (see the §4 break-even-vs-cap gap).
+- **Debt-fund-as-LP.** For a debt *fund* (not just a single note), apply the §3 fund-investment parallel track — portfolio LTV and its basis, first-position %, loan-loss reserves, lending latitude, and (for evergreen/semi-liquid funds) redemption-gate fragility in a withdrawal wave. The lender-to-the-fund lens is the deepest form of this; apply it to every debt fund, not just single-note offerings.
 
 ## 6. Strategy and asset-class risk
 
@@ -128,6 +160,74 @@ This is its own bucket because it is the single most common decline pattern:
 - **Macro fit.** Is the strategy in or out of favor for the cycle? Compare the implied required gross return (pref + fees + carry + overhead) to current market comparables. Check whether the market thesis is stale (written for conditions that no longer hold) or the sector is in oversupply.
 - **Concentration.** Single-asset, single-sponsor, single-geography, single-counterparty exposure.
 - **Projected-return marketing vs. underwriting.** Prominent target IRR/ROI figures splashed across the deck (e.g., "22–28% IRR / 86–110% ROI") for a blind-pool or pre-cash-flow strategy, with no supporting underwriting, comparable transactions, or basis in the offering documents, is a marketing-vs-reality finding — not a return assumption you can rely on. Flag the projection, push the underwriting (assumed timelines, approval probabilities, exit pricing, comps) into the questionnaire, and never let a deck IRR migrate into the memo as if it were diligenced. Be doubly skeptical when the same materials describe a speculative, illiquid, binary-outcome asset as "low-risk," "stable," "asset-backed," or "capital preservation."
+
+### Stacked stress test
+
+The pro forma must show performance under interest-rate + cap-rate + vacancy + OpEx shocks *simultaneously*, not one at a time. A deal that survives any single shock but dies under stacked stress is structurally fragile (a "conservative" 20%-vacancy break-even that ignored the other layers; NOI +35% with debt +60% = 100% equity loss). Execution cannot save a structurally fragile deal.
+
+### Cycle position (two cycles)
+
+Where are we in the two cycles that matter: (1) the **supply/demand** cycle (deliveries vs. absorption in the submarket) and (2) the **liquidity** cycle (the lending environment — rates, availability, terms)? A deal raised at peak optimism in both, or one that could not have been financed in a normal-rate environment, is structurally suspect regardless of terms. Tag `[MARKET]`.
+
+### Development and construction risk (ground-up deals)
+
+Permitting-timeline risk (municipal delays are the norm, not the exception), soil/environmental surprises, supply-chain exposure, inspection and utility/electrification delays — and reserves sized to *interest-rate* stress, not just lease-up stress (one deal's 11 months of reserves covered only 12 months because debt interest, not lease-up, was the drain).
+
+### Covenant-call risk
+
+A lender can **call a performing loan** on a DSCR or LTV covenant breach when a value decline raises the effective LTV — current payments do not protect you. Confirm the LTV **basis** (purchase price vs. ARV; a high-ARV-basis loan finances value not yet recognized), and for floating-rate debt remember the killer is the rate *moving*, not its level at close. Flag the covenant package, the breach triggers, and the cure period.
+
+### Anchor-tenant / single-counterparty risk
+
+A business plan that depends on a single anchor tenant — especially a seller-leaseback where the seller can walk — has a different risk profile than a multi-tenant deal, and is rarely surfaced as such in PPMs. Treat it as a deal-killer when the plan has no viable pivot.
+
+### Asset optionality `[STRENGTH]`
+
+An asset with credible alternative uses (powered land for data centers, residential conversion) is *less* risky than one whose only use is the stated plan. Value the optionality, not just the base case — it is a `[STRENGTH]`, and it has rescued otherwise-failing deals.
+
+## 6.5 Pro-forma vs. historical-range stress test (the Risk Radar)
+
+Run this **only when the offering includes a pro forma or projected operating model** (most RE equity / value-add / development; partial for debt funds). Skip it for registered interval funds, pure note programs, and other offerings with no LP-facing operating projection — and note that it was skipped and why. After terms are pinned (§0.5) and before current-market benchmarking (§10), plot every pro-forma assumption against its ~50-year historical range for the deal's submarket and asset class. A deal whose assumptions cluster at the outer edge of that range is structurally fragile regardless of how it compares to *current* comparables — the market reverts to the mean. §10 benchmarks against today; §6.5 benchmarks against history; in a peaked market §10 says "within market" while §6.5 says "at the outer edge of history" — the combination is the signal. Adapted from Christine Kwasny's Risk Radar (*Net Zero is a Win* / PassivePockets, 2026), tested retrospectively against five prior deals.
+
+**Inclusion criterion.** A metric earns a spoke only if it can *kill a deal*, not merely reduce returns. Fee drag is excluded here (it makes you poorer; it does not cause insolvency) — it lives in §1/§10.
+
+**The 17 spokes, by mutability zone.** The numeric bands below are *illustrative multifamily defaults* — starting points only. Override with submarket- and asset-specific data every time, and do not apply them to non-RE-equity offerings.
+
+*Zone 1 — Locked at closing (walk or accept):*
+
+| Spoke | Higher risk (outer) | Lower risk (inner) |
+|---|---|---|
+| GP tenure *as a team* | < 5 yrs | 20+ yrs |
+| GP expertise fit (strategy + asset + submarket) | off-strategy / out-of-submarket | on both |
+| GP "cockroaches" (litigation / regulatory / failed deals) | **any** credible negative mark | clean |
+| Purchase (going-in) cap rate | < 4% | > 6% |
+
+*Zone 2 — Sponsor-driven (monitor / negotiate):*
+
+| Spoke | Higher risk | Lower risk |
+|---|---|---|
+| Debt term | freely floating | fixed through hold |
+| DSCR (life-of-project) | 1.2–1.5× | 2.0–2.5× |
+| LTV (state the basis) | > 70% | < 60% — and LTV-on-ARV is riskier than on purchase price |
+| Expense ratio vs industry avg | **below** avg (counterintuitive) | at/above avg |
+| Reserves (months DS at stress) | minimal | 12+ months at +200bps |
+| Senior layers ahead of you | many / GP can add more | few / capped |
+| Waterfall alignment | straight split, no pref | pref + catch-up + clawback |
+
+*Zone 3 — Market-driven (hedge / accept) — the orientation principle:* for all six, **assuming you will outperform the historical average in perpetuity is the high-risk position.** The test is not "is this number achievable?" but "is it sustainable against the historical range?"
+
+| Spoke | Higher risk |
+|---|---|
+| Assumed exit cap rate | below avg (requires compression) |
+| New deliveries % assumed to persist | low supply assumed to continue |
+| Absorption assumed | above avg in perpetuity |
+| Income / rental rate | above market avg |
+| Income growth YoY | above historical avg |
+| Vacancy | below market avg |
+
+**How to score.** (1) For each spoke, gather the pro-forma value and the historical high/low/avg for this submarket + asset class — pull the historical series with available tools/web data (don't take the deck's numbers); cite source + vintage; never estimate (say "no usable series" if absent). (2) Plot the value; flag any spoke at the outer ring and tag it by zone (`[LOCKED]`/`[SPONSOR]`/`[MARKET]`). (3) **If 2+ spokes sit at the outer ring simultaneously, escalate the recommendation one tier** — a deal can be fragile even when each single assumption looks "achievable." (4) For market-driven spokes, require the GP to justify any outperformance with a concrete, evidenced mechanism — not "we're better operators." (5) Pull any outer-ring assumption into the Uncertainty Map (§11) and the questionnaire.
+
+**Two cross-references.** The waterfall spoke is the *inverse* of the §4 pref-as-ceiling check: §6.5 flags the **absence** of a pref (straight split → no obligation to return LP capital before promote = misalignment); §4 flags pref-*as-ceiling* (capping LP upside). Both directions are real. And §6.5 does not replace §10 (current-market terms) or §6 (qualitative strategy) — it is the historical-range quantitative test that sits between them.
 
 ## 7. Sponsor, principals, and track record
 
@@ -140,6 +240,26 @@ This is its own bucket because it is the single most common decline pattern:
 - **Operating-company-affiliate dodge.** A specific, common variant of the attribution problem: a brand-new fund GP is presented as the "private-equity arm" / "capital arm" of an established (often family) operating business, and the deck borrows the operating company's decades-long, deal-by-deal *gross* brokerage/development record as if it were the fund's net-of-fee performance. It usually fails all three questions: different entity (operating co ≠ fund GP), the operator who earned the record may not even be named in the PPM's management exhibit (often only the capital-raiser is), and an own-account development/brokerage record is not a record of managing outside LP money in a pooled fund. Demand fund-level, net-of-fee, third-party-verified returns; treat the operating company's self-reported deal sheet as marketing, not a track record. Always EDGAR-search the principal and any prior same-name fund vehicle — a sibling fund that raised $0 sits directly behind a "first time / proven track record" claim.
 - **Prior and parallel funds.** Number of vehicles, vintages, sizes, status, audited or not; simultaneous raises create allocation conflicts (§3).
 - **Litigation, regulatory action, "Bad Actor" history.** BBB, FINRA BrokerCheck, IAPD, state securities regulators, and web search.
+
+### GP co-invest vs. promote ratio
+
+Compute GP co-investment (% of total capitalization) against GP promote (carried-interest %). A few points of spread is normal; **co-invest < 1% with promote ≥ 15% is a structural misalignment** — escalate to FATAL or a mandatory ASK with a documented explanation (one fraud case ran < 0.05% co-invest against a 20% promote).
+
+### Extended-team tenure
+
+Check not just GP-principal tenure but the tenure of the **execution ecosystem** — architect, general contractor, property manager, key vendors. Long-standing relationships reduce execution risk; a newly assembled team is a risk factor even when the principals are experienced.
+
+### Solo GP vs. team — two-sided risk
+
+A *solo* GP carries succession **and** fraud risk (one person signing checks, no oversight) — for solo GPs, dual-signature requirements on deal accounts are FATAL-level (ties to §2 custody). A *team* carries partnership-breakup risk ("principals divorced"); check how long they have actually worked together and whether that includes a downturn.
+
+### Cross-portfolio distress check
+
+Search CMBS servicer reports, deed-in-lieu filings, and trade press for distress on the GP's *other* deals — a sponsor can be visibly distressed across its portfolio *during* a raise in data a family office can access even when retail LPs cannot.
+
+### The "Roaches" rule
+
+**One credible negative mark is a stop sign, not a data point.** A spotless record is the best predictor of reliable service; where one verified red flag surfaces (litigation, regulatory action, a soured prior deal), assume there are more you cannot see and raise the bar accordingly — do not average it away.
 
 ## 8. EDGAR / Form D reconciliation (do all five checks, not just the first)
 
@@ -196,6 +316,34 @@ glance index of open risk. Goes as an appendix table in the CIO memo:
 Anchor every row to a specific document and section/page. Anything material here should also be
 mirrored as an `[ASK]` in the memo body and as a numbered question in the sponsor questionnaire.
 
+## 12. Post-close monitoring protocol
+
+The highest-signal failure modes in the deal corpus surfaced *after* funds were collected, in the
+**reports** — not the PPM. This section is the protocol the LP adopts as a condition of investing, plus
+the reporting/audit rights to demand pre-close. For registered '40-Act funds much of this is supplied
+by the Investment Company Act apparatus — note that and scope down.
+
+**Pre-close, confirm the documents grant:** quarterly reporting (rent roll / loan tape, T-12, P&L,
+balance sheet, cash-flow waterfall, capex, narrative) within ~60 days of quarter-end; audited annual
+financials within ~120 days of year-end; and LP audit / information rights. Absence of these
+reporting/audit commitments is itself a finding.
+
+**Report-content red flags (any one → LP letter to the sponsor):**
+
+- Narrative-over-numbers — performance described without the standard financial package.
+- Period-over-period figures that do not tie.
+- Cadence slip > 30 days with no credible explanation; any gap > 1 quarter is a FATAL-level signal.
+- **Distribution-vs-NOI mismatch** — distributions exceeding free cash flow mean they are funded from
+  reserves or new capital, not operations. This is the test that exposed the Ripley fraud.
+
+**Closing-delay monitoring.** A deal-modification or closing delay > 60 days *after* funds are
+collected should trigger a demand for return of funds, not passive acceptance (the Nightingale fraud
+window).
+
+**Memo output.** Add a "Post-close monitoring commitments" line to the CIO memo stating the cadence the
+LP expects, the red flags it will watch, and the action it will take — signaling the IC is not passive
+post-close.
+
 ## Findings that should always go on page one of the CIO memo
 
 1. The fee structure is undisclosed — or fully disclosed and quantified, with the aggregate load computed and a worked example.
@@ -208,6 +356,10 @@ mirrored as an `[ASK]` in the memo body and as a numbered question in the sponso
 8. For notes: the instrument is secured and perfected (or it is unsecured, stated in the first line).
 9. The sponsor's primary business is investment management (or something else).
 10. The headline economics (fee, carry, pref, GP commitment, leverage, liquidity) sit within, above, or below current market — benchmarked against a cited source (§10).
+11. The pro-forma assumptions sit within their historical range, not clustered at the outer edge (or they do not) — Risk Radar §6.5; 2+ outer-ring spokes signal structural fragility regardless of current-market benchmarking. *(Only when the offering carries a pro forma.)*
+12. The break-even interest rate is at least 100–200bps below the rate cap (or the deal is structurally designed to fail at the cap).
+13. The OA does not let the GP change the capital stack without LP consent (or it does — pref/senior-class issuance, added debt, rescue-capital subordination).
+14. A post-close monitoring protocol exists or the LP is adopting one (cadence, content baseline, red-flag triggers, action plan).
 
 If any of these flips negative, the deal is unlikely to clear a family-office IC without remediation. Two or more: decline. (Benchmarking calibrates the others — an above-market term hardens a finding; a below-market, investor-friendly term is a `[STRENGTH]`, not a pass on the rest.)
 
@@ -215,6 +367,7 @@ If any of these flips negative, the deal is unlikely to clear a family-office IC
 
 ## Changelog
 
+- **v2.3 (2026-06-23)** — Integrated *Net Zero is a Win* / The Debrief (Christine Kwasny — the Risk Radar, ten deal autopsies, and the Heuristics pro-forma series) plus the PassivePockets Risk Radar interview. (1) **§6.5 Pro-forma vs. historical-range stress test** — the 17-spoke Risk Radar across three mutability zones, the orientation principle (for market-driven spokes, assuming perpetual outperformance of the historical average is the high-risk position), and the "must be able to kill a deal" inclusion criterion; numeric bands are illustrative RE-equity defaults to override with submarket data, and the section runs only when the offering carries a pro forma. (2) **§12 Post-close monitoring protocol** — reporting/audit rights to demand pre-close and the report-content red flags (esp. the distribution-vs-NOI mismatch test) that surfaced the corpus's frauds. (3) Extensions: **§0.5** marketing-claim reconciliation; **§1** math-integrity + return-presentation integrity (defined exit + IRR, ROI-vs-IRR reconciliation, refi-as-ROC, luck-vs-skill); **§2** capital-stack constraints + custody/controls; **§3** fund-investment parallel track; **§4/§5** break-even-vs-rate-cap gap + hedge spec + capital-call bridge/black-hole + debt-fund-as-LP; **§6** stacked stress, two-cycle position, development risk, covenant-call risk, anchor-tenant, asset optionality; **§7** co-invest-vs-promote ratio, extended-team tenure, solo-vs-team risk, cross-portfolio distress, the "Roaches" one-mark rule. (4) A **Mutability** analytical lens and a per-finding `[LOCKED]`/`[SPONSOR]`/`[MARKET]` zone tag (no separate deal-killer/return-reducer tag — that distinction lives in the §6.5 inclusion criterion and the finding text). (5) An **"Accredited ≠ astute"** preface guardrail; a **"Knowingly Accepted Risks"** CIO-memo section and a confidentiality/NDA operational note both added in SKILL.md. (6) Four new page-one findings (11–14). §6.5 stress-tests assumptions, §10 benchmarks terms — both complement the rubric's judgment, neither replaces it.
 - **v2.2 (2026-06-22)** — Adopted four ideas from the Kirkland Capital Group "AI Due Diligence Prompt for Private Fund Investors": (1) an **Analytical-lenses** preface — read every bucket through Fund Counsel / Prospective Investor / **Lender-to-the-fund** viewpoints, the last applied to all funds (not just notes), with redemption-run and asset–liability-mismatch questions folded into §4; (2) **§10 Benchmarking calibration** — calibrate headline terms against current, cited industry benchmarks (ILPA 3.0, PitchBook, Preqin, McKinsey, StepStone; see `benchmarking_sources.md`) in a memo table, with a never-estimate discipline; (3) **§11 Uncertainty map** — a citation-anchored appendix grid of ambiguous/missing/conflicting terms, companion to the questionnaire; (4) a tenth page-one finding (headline economics benchmarked vs. market). Our authenticity gate, reconciliation matrix, and external-diligence posture are retained — benchmarking calibrates, it does not replace the rubric's judgment.
 - **v2.1 (2026-06-12)** — Lessons folded in from the Lansing Land Development Fund I review: (1) carry the FATAL/NEGOTIABLE/ASK/STRENGTH tiers into the memo as visible per-finding labels with a legend and tally, and flag NEGOTIABLE-items whose status depends on curing a related FATAL; (2) §2 — added the per-LP "Carry/Management-Fee Adjustment" secret-side-letter mechanism and the "illusory safeguard" pattern (PPM cites an advisory committee/approval the LPA nullifies); (3) §7 — added the "operating-company-affiliate dodge" (new fund GP borrowing an affiliated operating business's gross deal record) and the reminder to EDGAR-search for a prior same-name fund vehicle that raised $0; (4) §6 — added "projected-return marketing vs. underwriting" (deck IRR/ROI with no documentary basis, especially when paired with "low-risk" framing of a binary asset).
 - **v2** — Added the document-authenticity gate (§0), cross-document reconciliation matrix (§0.5), conflicts/captive bucket (§3), debt-instrument branch (§5), the five-check EDGAR reconciliation (§8), and the page-one findings list.
