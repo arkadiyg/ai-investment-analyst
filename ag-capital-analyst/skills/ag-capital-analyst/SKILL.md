@@ -109,7 +109,7 @@ Maintain a **living thesis note per ticker** so conviction is tracked over time,
 
 `{WORKSPACE}/_theses/{TICKER} - {Security Name}.md`
 
-- **If the note does not exist:** create it from the **Thesis Note Format** (below), populating the thesis statement, 3-5 pillars, 3-5 key risks, catalysts, price target, and stop-loss from this run, and start the Update Log with today's dated entry and conviction (High / Medium / Low).
+- **If the note does not exist:** create it from the **Thesis Note Format** (below), populating the thesis statement, 3-5 pillars, 3-5 key risks, catalysts, price target, and stop-loss from this run, and start the Update Log with today's dated entry and conviction (High / Medium / Low). Set frontmatter `opened_price` to the entry-day price (the same current price you record in the Current Snapshot) — this is the coverage-initiation baseline the monthly thesis-review routine uses to compute price and total return since coverage.
 - **If the note already exists:** do **not** overwrite it. Read it first, then (a) refresh the **Current Snapshot** block (recommendation, conviction, price target, current price, last-updated date), and (b) **append** a new dated entry to the Update Log describing what changed since the prior entry, which pillar or risk it affects, the action taken (Initiate / Add / Trim / Exit / Hold), and the updated conviction. **Preserve every prior log entry** — the log is append-only.
 
 In each log entry, link back to this run's deliverable so the thesis threads through to the underlying analysis: `[[{MM-DD-YYYY} - {TICKER} - {Security Name}/{TICKER}-final-recommendation\|{MM-DD-YYYY} analysis]]`.
@@ -189,6 +189,7 @@ recommendation: BUY / SELL / HOLD
 conviction: High / Medium / Low
 price_target: XX.XX
 opened: {MM-DD-YYYY}
+opened_price: XX.XX
 last_updated: {MM-DD-YYYY}
 ---
 
@@ -199,6 +200,7 @@ last_updated: {MM-DD-YYYY}
 - **Conviction:** High / Medium / Low
 - **Price Target (fair value):** $XX.XX
 - **Current Price (as of {MM-DD-YYYY}):** $XX.XX
+- **Since coverage ({opened} @ ${opened_price}):** price $X.XX (X%) · total return X% — at initiation this is $0.00 (0.0%); the monthly review updates it
 - **Stop-Loss / Exit Trigger:** $XX.XX or condition
 
 ## Thesis Statement
