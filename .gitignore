@@ -3,3 +3,24 @@
 ag-analysis/
 .cloak
 .vscode/
+
+# --- Local working artifacts (never part of a release) ---
+
+# OMC / tooling state (keep only the tracked release-rule cache)
+.omc/*
+!.omc/RELEASE_RULE.md
+.omo/
+ppm-risk-review/.omc/
+notes/
+
+# ppm-risk-review: local Word-doc generation deps (docx) — not distributed
+ppm-risk-review/node_modules/
+ppm-risk-review/assets/
+ppm-risk-review/package.json
+ppm-risk-review/package-lock.json
+
+# ppm-risk-review: per-deal build scripts are local scratch.
+# Canonical templates (tracked) are build_cio_memo.js / build_plain_memo.js / build_questionnaire.js.
+ppm-risk-review/scripts/build_*_cio.js
+ppm-risk-review/scripts/build_*_plain.js
+ppm-risk-review/scripts/build_*_q.js
