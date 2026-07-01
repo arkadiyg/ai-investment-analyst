@@ -94,7 +94,7 @@ The same skill works as an Anthropic Agent Skill on Claude.ai (Pro / Team / Ente
 ### Install
 
 1. Download the skill bundle from the latest release:
-   [`ag-capital-analyst.skill`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.7.0/ag-capital-analyst.skill)
+   [`ag-capital-analyst.skill`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.8.0/ag-capital-analyst.skill)
 2. In Claude.ai, open **Settings → Capabilities → Skills** (the exact path may vary by plan; see the [official Skills setup guide](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills) for the current UI flow).
 3. Click **Upload skill** (or **Create skill** → **Upload file**) and select the downloaded `ag-capital-analyst.skill`.
 4. Enable the skill for the workspace or project where you want to use it.
@@ -149,7 +149,7 @@ If the deal folder contains a YouTube link (sponsor webinar or LP "deal review")
 
 Download the `.skill` bundle from the latest release and upload it in **Settings → Capabilities → Skills**:
 
-[`ppm-risk-review.skill`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.7.0/ppm-risk-review.skill)
+[`ppm-risk-review.skill`](https://github.com/arkadiyg/ai-investment-analyst/releases/download/v1.8.0/ppm-risk-review.skill)
 
 ## Disclaimer
 

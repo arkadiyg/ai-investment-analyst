@@ -22,7 +22,7 @@
       "name": "ppm-risk-review",
       "source": "./ppm-risk-review",
       "description": "Family-office-grade due diligence on a Private Placement Memorandum or other private-fund offering document. Produces a CIO risk memo (with industry benchmarking, a three-variant Risk-Radar stress test (equity, credit, and land) against historical and through-cycle norms, an uncertainty map, and a post-close monitoring protocol), sponsor diligence questionnaire, and plain-English summary in Markdown (Word optional on request), and ingests any linked YouTube deal-review video transcript as corroborating evidence.",
-      "version": "1.5.0",
+      "version": "1.5.1",
       "author": {
         "name": "AG Capital"
       },
