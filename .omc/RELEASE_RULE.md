@@ -6,9 +6,9 @@ publishes installable `.skill` bundles for Claude.ai. It contains two products, 
 versioned independently with its own semver:
 
 - `ag-capital-analyst` (currently 1.6.5)
-- `ppm-risk-review` (currently 1.5.0)
+- `ppm-risk-review` (currently 1.5.1)
 
-A **repo-level git tag `vX.Y.Z`** (latest `v1.7.0`) is the GitHub Release that hosts the
+A **repo-level git tag `vX.Y.Z`** (latest `v1.8.0`) is the GitHub Release that hosts the
 `.skill` download assets. This repo tag is a unified release counter for the marketplace —
 it is NOT tied to either plugin's semver. README download links point both `.skill`
 bundles at the latest repo tag.
